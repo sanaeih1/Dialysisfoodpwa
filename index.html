@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت تغذیه بیماران دیالیزی</title>
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        /* بخش استایل در بخش بعدی کپی شود */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>مدیریت تغذیه بیماران دیالیزی</h1>
+        </div>
+
+        <div class="nav">
+            <button onclick="showSection('dashboard')" class="active">داشبورد</button>
+            <button onclick="showSection('education')">آموزش</button>
+            <button onclick="showSection('foodList')">لیست مواد غذایی</button>
+            <button onclick="showSection('addFood')">افزودن غذا</button>
+            <button onclick="showSection('history')">تاریخچه</button>
+            <button onclick="showSection('settings')">تنظیمات</button>
+        </div>
+
+        <!-- داشبورد -->
+        <div id="dashboard" class="section active">
+            <div class="chart-container-grid">
+                <div class="chart-container">
+                    <canvas id="sodiumChart"></canvas>
+                    <div class="chart-info">
+                        <div class="chart-face-sticker" id="sodiumFaceSticker"></div>
+                        <div class="chart-label">سدیم</div>
+                        <div class="chart-percentage" id="sodiumPercentage"></div>
+                        <div class="chart-value" id="sodiumValue"></div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="potassiumChart"></canvas>
+                    <div class="chart-info">
+                        <div class="chart-face-sticker" id="potassiumFaceSticker"></div>
+                        <div class="chart-label">پتاسیم</div>
+                        <div class="chart-percentage" id="potassiumPercentage"></div>
+                        <div class="chart-value" id="potassiumValue"></div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="phosphorusChart"></canvas>
+                    <div class="chart-info">
+                        <div class="chart-face-sticker" id="phosphorusFaceSticker"></div>
+                        <div class="chart-label">فسفر</div>
+                        <div class="chart-percentage" id="phosphorusPercentage"></div>
+                        <div class="chart-value" id="phosphorusValue"></div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="waterChart"></canvas>
+                    <div class="chart-info">
+                        <div class="chart-face-sticker" id="waterFaceSticker"></div>
+                        <div class="chart-label">آب</div>
+                        <div class="chart-percentage" id="waterPercentage"></div>
+                        <div class="chart-value" id="waterValue"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="current-totals" id="currentTotals"></div>
+            <div id="warnings"></div>
+            <h2>محاسبه مواد مغذی</h2>
+            <form class="food-form" onsubmit="addFoodEntry(event)">
+                <select id="foodSelect" required></select>
+                <input type="number" id="amount" placeholder="مقدار (واحد)" step="1" required>
+                <select id="mealType" required>
+                    <option value="breakfast">صبحانه</option>
+                    <option value="lunch">ناهار</option>
+                    <option value="dinner">شام</option>
+                </select>
+                <select id="dayOfWeek" required>
+                    <option value="saturday">شنبه</option>
+                    <option value="sunday">یکشنبه</option>
+                    <option value="monday">دوشنبه</option>
+                    <option value="tuesday">سه شنبه</option>
+                    <option value="wednesday">چهارشنبه</option>
+                    <option value="thursday">پنج شنبه</option>
+                    <option value="friday">جمعه</option>
+                </select>
+                <button type="submit">ثبت مصرف</button>
+            </form>
+        </div>
+
+        <!-- بخش آموزشی -->
+        <div id="education" class="section">
+            <h2>ویدیوهای آموزشی</h2>
+            <div class="video-container" id="videoContainer">
+                <!-- جایگزینی لینک آپارات در آینده -->
+            </div>
+
+            <h2>مقالات آموزشی</h2>
+            <div class="education-list">
+                <div class="education-item">۱. اهمیت محدودیت مایعات در دیالیز</div>
+                <div class="education-item">۲. مدیریت مصرف پتاسیم روزانه</div>
+                <div class="education-item">۳. منابع غذایی حاوی فسفر بالا</div>
+                <div class="education-item">۴. برنامه ریزی وعده‌های غذایی هفتگی</div>
+                <div class="education-item">۵. جایگزین‌های نمک در رژیم غذایی</div>
+                <div class="education-item">۶. کنترل فشار خون در بیماران دیالیزی</div>
+                <div class="education-item">۷. نقش پروتئین در تغذیه دیالیزی</div>
+                <div class="education-item">۸. مدیریت وزن در بین جلسات دیالیز</div>
+                <div class="education-item">۹. مواد غذایی ممنوعه برای بیماران کلیوی</div>
+                <div class="education-item">۱۰. راهکارهای کاهش تشنگی</div>
+                <div class="education-item">۱۱. مصرف صحیح مکمل‌های غذایی</div>
+                <div class="education-item">۱۲. ورزش و فعالیت بدنی مناسب</div>
+                <div class="education-item">۱۳. کنترل قند خون در بیماران دیابتی</div>
+                <div class="education-item">۱۴. روش‌های پخت مناسب</div>
+                <div class="education-item">۱۵. مدیریت استرس و سلامت روان</div>
+                <div class="education-item">۱۶. نشانه‌های اورژانسی در بیماران</div>
+                <div class="education-item">۱۷. مراقبت از دسترسی عروقی</div>
+                <div class="education-item">۱۸. تداخلات دارویی با مواد غذایی</div>
+                <div class="education-item">۱۹. برنامه غذایی نمونه روزانه</div>
+                <div class="education-item">۲۰. نکات مهم برای همراهان بیمار</div>
+            </div>
+        </div>
+
+        <!-- بخش لیست مواد غذایی -->
+        <div id="foodList" class="section">
+            <h2>لیست مواد غذایی</h2>
+            <table class="food-table">
+                <thead>
+                    <tr>
+                        <th>نام</th>
+                        <th>سدیم (mg)</th>
+                        <th>پتاسیم (mg)</th>
+                        <th>فسفر (mg)</th>
+                        <th>آب (ml)</th>
+                        <th>اقدامات</th>
+                    </tr>
+                </thead>
+                <tbody id="foodDatabase"></tbody>
+            </table>
+            <form class="edit-food-form" id="editFoodForm" onsubmit="editFood(event)">
+                <input type="hidden" id="editFoodIndex">
+                <input type="text" id="editFoodName" placeholder="نام ماده غذایی" required>
+                <input type="number" id="editSodium" placeholder="سدیم (میلی گرم)" required>
+                <input type="number" id="editPotassium" placeholder="پتاسیم (میلی گرم)" required>
+                <input type="number" id="editPhosphorus" placeholder="فسفر (میلی گرم)" required>
+                <input type="number" id="editWater" placeholder="آب (میلی لیتر)" required>
+                <button type="submit">ذخیره تغییرات</button>
+                <button type="button" onclick="cancelEdit()">انصراف</button>
+            </form>
+        </div>
+
+        <!-- بخش افزودن غذا -->
+        <div id="addFood" class="section">
+            <h2>اضافه کردن ماده غذایی جدید</h2>
+            <form class="new-food-form" onsubmit="addNewFood(event)">
+                <input type="text" id="newFoodName" placeholder="نام ماده غذایی" required>
+                <input type="number" id="sodium" placeholder="سدیم (میلی گرم)" required>
+                <input type="number" id="potassium" placeholder="پتاسیم (میلی گرم)" required>
+                <input type="number" id="phosphorus" placeholder="فسفر (میلی گرم)" required>
+                <input type="number" id="water" placeholder="آب (میلی لیتر)" required>
+                <button type="submit">ذخیره</button>
+            </form>
+        </div>
+
+        <!-- بخش تاریخچه -->
+        <div id="history" class="section">
+            <h2>تاریخچه مصرف</h2>
+            <button class="reset-button" onclick="clearHistory()">حذف تاریخچه</button>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>نام غذا</th>
+                        <th>مقدار (واحد)</th>
+                        <th>وعده</th>
+                        <th>روز هفته</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTable"></tbody>
+            </table>
+        </div>
+
+        <!-- بخش تنظیمات -->
+        <div id="settings" class="section">
+            <h2>تنظیمات محدودیت‌ها</h2>
+            <form class="settings-form" onsubmit="saveSettings(event)">
+                <label for="sodiumLimit">محدودیت سدیم (میلی گرم):</label>
+                <input type="number" id="sodiumLimit" required>
+                <label for="potassiumLimit">محدودیت پتاسیم (میلی گرم):</label>
+                <input type="number" id="potassiumLimit" required>
+                <label for="phosphorusLimit">محدودیت فسفر (میلی گرم):</label>
+                <input type="number" id="phosphorusLimit" required>
+                <label for="waterLimit">محدودیت آب (میلی لیتر):</label>
+                <input type="number" id="waterLimit" required>
+                <button type="submit">ذخیره محدودیت‌ها</button>
+            </form>
+            <button class="reset-button" onclick="resetData()">بازنشانی داده‌ها</button>
+            <div class="theme-settings">
+                <h2>تنظیمات پوسته</h2>
+                <label for="fontSize">اندازه فونت:</label>
+                <input type="number" id="fontSize" value="1" step="0.1">
+                <button onclick="applyTheme()">اعمال پوسته</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // بخش جاوااسکریپت در قسمت بعدی کپی شود
+    </script>
+</body>
+</html>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary-color: #9c27b0;
+            --secondary-color: #7b1fa2;
+            --text-color: #333;
+            --background-color: #f8f8f8;
+            --accent-color: #e1bee7;
+            --font-size: 1rem;
+        }
+
+        * {
+            font-family: 'Vazirmatn', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            direction: rtl;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-size: var(--font-size);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav button {
+            border: none;
+            border-radius: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            flex: 1;
+            margin: 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav button:hover {
+            background-color: var(--primary-color);
+        }
+
+        .nav button.active {
+            background-color: var(--primary-color);
+        }
+
+        .section {
+            display: none;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .food-form,
+        .new-food-form,
+        .settings-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input,
+        select,
+        button {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .warning {
+            color: white;
+            font-weight: bold;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f44336;
+            text-align: center;
+        }
+
+        .chart-container {
+            margin-top: 10px;
+            height: 150px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            flex-direction: row;
+            width: 48%;
+        }
+
+        .chart-container canvas {
+            max-width: 60%;
+            max-height: 100%;
+        }
+
+        .limit-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-bottom: 2px dashed;
+        }
+
+        .limit-line.safe {
+            border-color: green;
+        }
+
+        .limit-line.danger {
+            border-color: red;
+        }
+
+        .chart-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-right: 10px;
+            flex: 1;
+        }
+
+        .chart-face-sticker {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .chart-label {
+            font-size: 0.8rem;
+            text-align: right;
+        }
+
+        .chart-percentage {
+            font-size: 0.9rem;
+            text-align: right;
+            margin-bottom: 5px;
+        }
+
+        .chart-value {
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .food-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .food-table th,
+        .food-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .food-table th {
+            background-color: #f0f0f0;
+        }
+
+        .current-totals {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .current-totals p {
+            background-color: #eee;
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .settings-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .settings-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .settings-form input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .settings-form button {
+            grid-column: span 2;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .settings-form button:hover {
+            background-color: var(--primary-color);
+        }
+
+        .reset-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .reset-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .theme-settings {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .theme-settings label {
+            font-weight: bold;
+        }
+
+        .theme-settings input[type="color"],
+        .theme-settings input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .theme-settings button {
+            grid-column: span 1;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-settings button:hover {
+            background-color: var(--primary-color);
+        }
+
+        .face-sticker {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .edit-food-form {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .edit-food-form.active {
+            display: grid;
+        }
+
+        .edit-food-form input,
+        .edit-food-form button {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .history-table th {
+            background-color: #f0f0f0;
+        }
+
+        .chart-container-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .food-table button,
+        .history-table button {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .food-table button:hover,
+        .history-table button:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* استایل‌های جدید برای بخش آموزشی */
+        .education-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .education-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .video-container {
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            aspect-ratio: 16/9;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px auto;
+                padding: 0.5rem;
+            }
+
+            .nav {
+                flex-direction: column;
+            }
+
+            .nav button {
+                margin: 0.2rem 0;
+            }
+
+            .food-form,
+            .new-food-form,
+            .settings-form,
+            .edit-food-form {
+                grid-template-columns: 1fr;
+            }
+
+            .current-totals {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                width: 100%;
+            }
+
+            .education-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        // تابع تولید شناسه یکتا (UUID)
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // دریافت شناسه کاربر (اگر وجود نداشت، ایجاد می‌شود)
+        let userId = localStorage.getItem('userId');
+        if (!userId) {
+            userId = generateUUID();
+            localStorage.setItem('userId', userId);
+        }
+
+        // تابع ذخیره داده برای کاربر فعلی
+        function saveData(data) {
+            localStorage.setItem(`userData_${userId}`, JSON.stringify(data));
+        }
+
+        // تابع دریافت داده برای کاربر فعلی
+        function getData() {
+            const data = localStorage.getItem(`userData_${userId}`);
+            return data ? JSON.parse(data) : null;
+        }
+
+        // بارگذاری داده‌های اولیه
+        let userData = getData();
+        let foodDB = (userData && userData.foodDB) || [
+            {name: 'مرغ', sodium: 70, potassium: 280, phosphorus: 200, water: 65},
+            {name: 'برنج', sodium: 5, potassium: 35, phosphorus: 40, water: 70},
+            {name: 'سیب زمینی', sodium: 10, potassium: 400, phosphorus: 50, water: 80},
+            {name: 'شیر', sodium: 50, potassium: 350, phosphorus: 250, water: 90},
+            {name: 'نان', sodium: 200, potassium: 80, phosphorus: 70, water: 40},
+            {name: 'تخم مرغ', sodium: 60, potassium: 70, phosphorus: 90, water: 75},
+            {name: 'ماست', sodium: 80, potassium: 150, phosphorus: 120, water: 85},
+            {name: 'خیار', sodium: 5, potassium: 150, phosphorus: 20, water: 95},
+            {name: 'گوجه فرنگی', sodium: 10, potassium: 250, phosphorus: 30, water: 90},
+            {name: 'هویج', sodium: 15, potassium: 300, phosphorus: 35, water: 88}
+        ];
+        let dailyIntake = (userData && userData.dailyIntake) || [];
+        let settings = (userData && userData.settings) || {
+            sodiumLimit: 2000,
+            potassiumLimit: 2000,
+            phosphorusLimit: 1000,
+            waterLimit: 1500
+        };
+        let themeSettings = (userData && userData.themeSettings) || {fontSize: '1'};
+        let currentEditIndex = null;
+
+        // تنظیمات نمودارها
+        const sodiumChart = new Chart(document.getElementById('sodiumChart'), {
+            type: 'doughnut',
+            data: {labels: ['مصرف شده', 'باقی مانده'], datasets: [{
+                data: [0, 100],
+                backgroundColor: ['rgba(255, 99, 132, 0.7)', 'rgba(220,220,220,0.7)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(220,220,220,1)'],
+                borderWidth: 1
+            }]},
+            options: {responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: {legend: {display: false}}}
+        });
+
+        const potassiumChart = new Chart(document.getElementById('potassiumChart'), {
+            type: 'doughnut',
+            data: {labels: ['مصرف شده', 'باقی مانده'], datasets: [{
+                data: [0, 100],
+                backgroundColor: ['rgba(54, 162, 235, 0.7)', 'rgba(220,220,220,0.7)'],
+                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(220,220,220,1)'],
+                borderWidth: 1
+            }]},
+            options: {responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: {legend: {display: false}}}
+        });
+
+        const phosphorusChart = new Chart(document.getElementById('phosphorusChart'), {
+            type: 'doughnut',
+            data: {labels: ['مصرف شده', 'باقی مانده'], datasets: [{
+                data: [0, 100],
+                backgroundColor: ['rgba(255, 206, 86, 0.7)', 'rgba(220,220,220,0.7)'],
+                borderColor: ['rgba(255, 206, 86, 1)', 'rgba(220,220,220,1)'],
+                borderWidth: 1
+            }]},
+            options: {responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: {legend: {display: false}}}
+        });
+
+        const waterChart = new Chart(document.getElementById('waterChart'), {
+            type: 'doughnut',
+            data: {labels: ['مصرف شده', 'باقی مانده'], datasets: [{
+                data: [0, 100],
+                backgroundColor: ['rgba(75, 192, 192, 0.7)', 'rgba(220,220,220,0.7)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(220,220,220,1)'],
+                borderWidth: 1
+            }]},
+            options: {responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: {legend: {display: false}}}
+        });
+
+        // توابع اصلی
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelectorAll('.nav button').forEach(button => button.classList.remove('active'));
+            document.querySelector(`.nav button[onclick="showSection('${sectionId}')"]`).classList.add('active');
+        }
+
+        function updateChart() {
+            let currentTotals = calculateCurrentTotals();
+            let sodiumPercentage = Math.min((currentTotals.sodium / settings.sodiumLimit) * 100, 100);
+            let potassiumPercentage = Math.min((currentTotals.potassium / settings.potassiumLimit) * 100, 100);
+            let phosphorusPercentage = Math.min((currentTotals.phosphorus / settings.phosphorusLimit) * 100, 100);
+            let waterPercentage = Math.min((currentTotals.water / settings.waterLimit) * 100, 100);
+
+            sodiumChart.data.datasets[0].data = [sodiumPercentage, 100 - sodiumPercentage];
+            potassiumChart.data.datasets[0].data = [potassiumPercentage, 100 - potassiumPercentage];
+            phosphorusChart.data.datasets[0].data = [phosphorusPercentage, 100 - phosphorusPercentage];
+            waterChart.data.datasets[0].data = [waterPercentage, 100 - waterPercentage];
+
+            sodiumChart.update();
+            potassiumChart.update();
+            phosphorusChart.update();
+            waterChart.update();
+
+            document.getElementById('sodiumPercentage').textContent = `${sodiumPercentage.toFixed(0)}%`;
+            document.getElementById('potassiumPercentage').textContent = `${potassiumPercentage.toFixed(0)}%`;
+            document.getElementById('phosphorusPercentage').textContent = `${phosphorusPercentage.toFixed(0)}%`;
+            document.getElementById('waterPercentage').textContent = `${waterPercentage.toFixed(0)}%`;
+
+            document.getElementById('sodiumValue').textContent = `${currentTotals.sodium} میلی گرم`;
+            document.getElementById('potassiumValue').textContent = `${currentTotals.potassium} میلی گرم`;
+            document.getElementById('phosphorusValue').textContent = `${currentTotals.phosphorus} میلی گرم`;
+            document.getElementById('waterValue').textContent = `${currentTotals.water} میلی لیتر`;
+        }
+
+        function calculateCurrentTotals() {
+            let totals = {sodium: 0, potassium: 0, phosphorus: 0, water: 0};
+            dailyIntake.forEach(item => {
+                let food = foodDB.find(f => f.name === item.foodName);
+                if (food) {
+                    totals.sodium += food.sodium * item.amount;
+                    totals.potassium += food.potassium * item.amount;
+                    totals.phosphorus += food.phosphorus * item.amount;
+                    totals.water += food.water * item.amount;
+                }
+            });
+            return {
+                sodium: Math.round(totals.sodium),
+                potassium: Math.round(totals.potassium),
+                phosphorus: Math.round(totals.phosphorus),
+                water: Math.round(totals.water)
+            };
+        }
+
+        function updateCurrentTotalsDisplay() {
+            let currentTotals = calculateCurrentTotals();
+            document.getElementById('currentTotals').innerHTML = `
+                <p>سدیم: ${currentTotals.sodium} میلی گرم</p>
+                <p>پتاسیم: ${currentTotals.potassium} میلی گرم</p>
+                <p>فسفر: ${currentTotals.phosphorus} میلی گرم</p>
+                <p>آب: ${currentTotals.water} میلی لیتر</p>
+            `;
+        }
+
+        function addFoodEntry(event) {
+            event.preventDefault();
+            const foodName = document.getElementById('foodSelect').value;
+            const amount = parseInt(document.getElementById('amount').value);
+            const mealType = document.getElementById('mealType').value;
+            const dayOfWeek = document.getElementById('dayOfWeek').value;
+
+            const mealTypeFa = {'breakfast': 'صبحانه', 'lunch': 'ناهار', 'dinner': 'شام'}[mealType];
+            const dayOfWeekFa = {
+                'saturday': 'شنبه', 'sunday': 'یکشنبه', 'monday': 'دوشنبه',
+                'tuesday': 'سه شنبه', 'wednesday': 'چهارشنبه', 'thursday': 'پنج شنبه', 'friday': 'جمعه'
+            }[dayOfWeek];
+
+            dailyIntake.push({foodName, amount, mealType: mealTypeFa, dayOfWeek: dayOfWeekFa});
+            userData = getData() || {};
+            userData.dailyIntake = dailyIntake;
+            saveData(userData);
+
+            updateChart();
+            updateCurrentTotalsDisplay();
+            checkLimits();
+            document.getElementById('amount').value = '';
+            updateFaceStickers();
+            updateHistoryTable();
+        }
+
+        function updateFoodSelect() {
+            const foodSelect = document.getElementById('foodSelect');
+            foodSelect.innerHTML = '';
+            foodDB.forEach(food => {
+                const option = document.createElement('option');
+                option.value = food.name;
+                option.textContent = food.name;
+                foodSelect.appendChild(option);
+            });
+        }
+
+        function addNewFood(event) {
+            event.preventDefault();
+            const newFood = {
+                name: document.getElementById('newFoodName').value,
+                sodium: parseInt(document.getElementById('sodium').value),
+                potassium: parseInt(document.getElementById('potassium').value),
+                phosphorus: parseInt(document.getElementById('phosphorus').value),
+                water: parseInt(document.getElementById('water').value)
+            };
+            foodDB.push(newFood);
+            userData = getData() || {};
+            userData.foodDB = foodDB;
+            saveData(userData);
+            updateEducationDB();
+            updateFoodSelect();
+            document.getElementById('newFoodName').value = '';
+            document.getElementById('sodium').value = '';
+            document.getElementById('potassium').value = '';
+            document.getElementById('phosphorus').value = '';
+            document.getElementById('water').value = '';
+        }
+
+        function updateEducationDB() {
+            const foodDatabase = document.getElementById('foodDatabase');
+            foodDatabase.innerHTML = '';
+            foodDB.forEach((food, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${food.name}</td>
+                    <td>${food.sodium}</td>
+                    <td>${food.potassium}</td>
+                    <td>${food.phosphorus}</td>
+                    <td>${food.water}</td>
+                    <td>
+                        <button onclick="editFoodForm(${index})">ویرایش</button>
+                        <button onclick="deleteFood(${index})">حذف</button>
+                    </td>
+                `;
+                foodDatabase.appendChild(row);
+            });
+        }
+
+        function editFoodForm(index) {
+            currentEditIndex = index;
+            const food = foodDB[index];
+            document.getElementById('editFoodIndex').value = index;
+            document.getElementById('editFoodName').value = food.name;
+            document.getElementById('editSodium').value = food.sodium;
+            document.getElementById('editPotassium').value = food.potassium;
+            document.getElementById('editPhosphorus').value = food.phosphorus;
+            document.getElementById('editWater').value = food.water;
+            document.getElementById('editFoodForm').classList.add('active');
+        }
+
+        function cancelEdit() {
+            document.getElementById('editFoodForm').classList.remove('active');
+            currentEditIndex = null;
+        }
+
+        function editFood(event) {
+            event.preventDefault();
+            const index = parseInt(document.getElementById('editFoodIndex').value);
+            foodDB[index] = {
+                name: document.getElementById('editFoodName').value,
+                sodium: parseInt(document.getElementById('editSodium').value),
+                potassium: parseInt(document.getElementById('editPotassium').value),
+                phosphorus: parseInt(document.getElementById('editPhosphorus').value),
+                water: parseInt(document.getElementById('editWater').value)
+            };
+            userData = getData() || {};
+            userData.foodDB = foodDB;
+            saveData(userData);
+            updateEducationDB();
+            updateFoodSelect();
+            cancelEdit();
+        }
+
+        function deleteFood(index) {
+            if (confirm('آیا مطمئن هستید که می‌خواهید این ماده غذایی را حذف کنید؟')) {
+                foodDB.splice(index, 1);
+                userData = getData() || {};
+                userData.foodDB = foodDB;
+                saveData(userData);
+                updateEducationDB();
+                updateFoodSelect();
+            }
+        }
+
+        function saveSettings(event) {            event.preventDefault();
+            settings.sodiumLimit = parseInt(document.getElementById('sodiumLimit').value);
+            settings.potassiumLimit = parseInt(document.getElementById('potassiumLimit').value);
+            settings.phosphorusLimit = parseInt(document.getElementById('phosphorusLimit').value);            settings.waterLimit = parseInt(document.getElementById('waterLimit').value);
+            userData = getData() || {};
+            userData.settings = settings;
+            saveData(userData);
+            updateChart();
+            checkLimits();
+        }
+
+        function resetData() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید همه داده‌ها را بازنشانی کنید؟')) {
+                localStorage.removeItem(`userData_${userId}`);
+                dailyIntake = [];
+                foodDB = [ // Reset foodDB to its initial state
+                    {name: 'مرغ', sodium: 70, potassium: 280, phosphorus: 200, water: 65},
+                    {name: 'برنج', sodium: 5, potassium: 35, phosphorus: 40, water: 70},
+                    {name: 'سیب زمینی', sodium: 10, potassium: 400, phosphorus: 50, water: 80},
+                    {name: 'شیر', sodium: 50, potassium: 350, phosphorus: 250, water: 90},
+                    {name: 'نان', sodium: 200, potassium: 80, phosphorus: 70, water: 40},
+                    {name: 'تخم مرغ', sodium: 60, potassium: 70, phosphorus: 90, water: 75},
+                    {name: 'ماست', sodium: 80, potassium: 150, phosphorus: 120, water: 85},
+                    {name: 'خیار', sodium: 5, potassium: 150, phosphorus: 20, water: 95},
+                    {name: 'گوجه فرنگی', sodium: 10, potassium: 250, phosphorus: 30, water: 90},
+                    {name: 'هویج', sodium: 15, potassium: 300, phosphorus: 35, water: 88}
+                ];
+                settings = {  // and settings
+                    sodiumLimit: 2000,
+                    potassiumLimit: 2000,
+                    phosphorusLimit: 1000,
+                    waterLimit: 1500
+                };
+                themeSettings = { fontSize: '1' }; // and theme settings
+                updateChart();
+                updateCurrentTotalsDisplay();
+                updateHistoryTable();
+                checkLimits();
+                updateFoodSelect(); // Add this to repopulate the food select
+                updateEducationDB();
+
+            }
+        }
+
+        function clearHistory() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید تاریخچه را پاک کنید؟')) {
+                dailyIntake = [];
+                userData = getData() || {};
+                userData.dailyIntake = dailyIntake;
+                saveData(userData);
+                updateHistoryTable();
+                updateChart();
+                updateCurrentTotalsDisplay();
+                checkLimits();
+            }
+        }
+
+        function updateHistoryTable() {
+            const historyTable = document.getElementById('historyTable');
+            historyTable.innerHTML = '';
+            dailyIntake.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.foodName}</td>
+                    <td>${item.amount}</td>
+                    <td>${item.mealType}</td>
+                    <td>${item.dayOfWeek}</td>
+                `;
+                historyTable.appendChild(row);
+            });
+        }
+
+        function applyTheme() {
+            themeSettings.fontSize = document.getElementById('fontSize').value;
+            userData = getData() || {};
+            userData.themeSettings = themeSettings;            saveData(userData);
+            document.documentElement.style.fontSize = `${themeSettings.fontSize}rem`;
+        }
+
+        function checkLimits() {
+            let currentTotals = calculateCurrentTotals();
+            let warningsDiv = document.getElementById('warnings');
+            warningsDiv.innerHTML = '';            if (currentTotals.sodium > settings.sodiumLimit) {
+                warningsDiv.innerHTML += `<div class="warning">خطر: میزان سدیم از حد مجاز (${settings.sodiumLimit} میلی‌گرم) بیشتر است!</div>`;
+            }
+            if (currentTotals.potassium > settings.potassiumLimit) {
+                warningsDiv.innerHTML += `<div class="warning">خطر: میزان پتاسیم از حد مجاز (${settings.potassiumLimit} میلی‌گرم) بیشتر است!</div>`;
+            }
+            if (currentTotals.phosphorus > settings.phosphorusLimit) {
+                warningsDiv.innerHTML += `<div class="warning">خطر: میزان فسفر از حد مجاز (${settings.phosphorusLimit} میلی‌گرم) بیشتر است!</div>`;
+            }
+            if (currentTotals.water > settings.waterLimit) {
+                warningsDiv.innerHTML += `<div class="warning">خطر: میزان آب از حد مجاز (${settings.waterLimit} میلی‌لیتر) بیشتر است!</div>`;
+            }
+        }
+
+        function updateFaceStickers() {
+            let currentTotals = calculateCurrentTotals();
+
+            const sodiumPercentage = Math.min((currentTotals.sodium / settings.sodiumLimit) * 100, 100);
+            const potassiumPercentage = Math.min((currentTotals.potassium / settings.potassiumLimit) * 100, 100);
+            const phosphorusPercentage = Math.min((currentTotals.phosphorus / settings.phosphorusLimit) * 100, 100);
+            const waterPercentage = Math.min((currentTotals.water / settings.waterLimit) * 100, 100);
+
+            document.getElementById('sodiumFaceSticker').textContent = getFaceSticker(sodiumPercentage);
+            document.getElementById('potassiumFaceSticker').textContent = getFaceSticker(potassiumPercentage);
+            document.getElementById('phosphorusFaceSticker').textContent = getFaceSticker(phosphorusPercentage);
+            document.getElementById('waterFaceSticker').textContent = getFaceSticker(waterPercentage);
+        }
+
+        function getFaceSticker(percentage) {
+            if (percentage < 50) {
+                return '😊'; // Safe
+            } else if (percentage < 80) {
+                return '😐'; // Moderate
+            } else {
+                return '😟'; // Warning
+            }
+        }
+
+        // Initial setup
+        document.documentElement.style.fontSize = `${themeSettings.fontSize}rem`;
+        updateFoodSelect();
+        updateEducationDB();
+        updateHistoryTable();
+        updateChart();
+        updateCurrentTotalsDisplay();
+        checkLimits();
+        updateFaceStickers();
+
+
+        // PWA - Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registered:', registration);
+                    })
+                    .catch((error) => {
+                        console.error('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+
+    </script></body>
+</html>

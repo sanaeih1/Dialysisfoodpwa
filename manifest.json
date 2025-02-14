@@ -1,0 +1,16 @@
+{
+  "start_url": " \"/index.html\", // تغییر به مسیر دقیق",
+  "name": "مدیریت تغذیه دیالیز",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "short_name": "Diyalisysfood",
+  "id": "Pwadia",
+  "dir": "auto",
+  "lang": "fa",
+  "orientation": "any",
+  "display": "fullscreen",
+  "categories": [
+    "health",
+    "lifestyle"
+  ]
+}

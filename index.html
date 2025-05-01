@@ -1,0 +1,1666 @@
+﻿<!doctype html>
+<html lang="fa" dir="rtl"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>مدیریت تغذیه بیماران دیالیزی</title> 
+  <link href="https://cdn.jsdelivr.net/npm/vazir-font@28.0.0/dist/font-face.css" rel="stylesheet"> 
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6a1b9a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="تغذیه دیالیزی">
+  <link rel="apple-touch-icon" href="icon-192x192.png">
+  <style>
+    body {
+      font-family: 'Vazir', sans-serif;
+      margin: 0;
+      padding: 8px;
+      background-color: #FFF5E1;
+      direction: rtl;
+      text-align: right;
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      text-align: center;
+      margin: 15px 0;
+      font-weight: 500;
+    }
+
+    .sidebar {
+      width: 0;
+      background-color: #f0e7ff;
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 100%;
+      transition: width 0.3s ease-in-out;
+      overflow: hidden;
+      z-index: 1000;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar.expanded {
+      width: 85%;
+      max-width: 280px;
+    }
+
+    .menu-toggle {
+      background-color: #6a1b9a;
+      color: white;
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 1.4rem;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      position: fixed;
+      right: 8px;
+      top: 8px;
+      z-index: 1001;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu-toggle:hover {
+      background-color: #8e24aa;
+    }
+
+    .menu-items {
+      padding: 15px;
+      margin-top: 50px;
+    }
+
+    .tab-button {
+      padding: 12px;
+      background-color: transparent;
+      color: #222;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s;
+      text-align: right;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .tab-button:hover {
+      background-color: #e0d7ff;
+    }
+
+    .tab-button.active {
+      background-color: #d1c4e9;
+      font-weight: bold;
+    }
+
+    .tab-button::before {
+      font-size: 1.4rem;
+    }
+
+    .tab-button.dashboard::before {
+      content: '📊';
+    }
+
+    .tab-button.recommendations::before {
+      content: '💡';
+    }
+
+    .tab-button.intakeHistory::before {
+      content: '📜';
+    }
+
+    .tab-button.foodList::before {
+      content: '🍽️';
+    }
+
+    .tab-button.videos::before {
+      content: '🎥';
+    }
+
+    .tab-button.settings::before {
+      content: '⚙️';
+    }
+
+    .tab-button.contact::before {
+      content: '📞';
+    }
+
+    .content-area {
+      flex-grow: 1;
+      margin-top: 50px;
+      padding-bottom: 15px;
+    }
+
+    .tab-content {
+      display: none;
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      margin: 8px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    h2, h3 {
+      color: #222;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #333;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    small {
+      color: #666;
+      font-size: 0.9rem;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin-top: 8px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+      background-color: white;
+    }
+
+    table, th, td {
+      border: 1px solid #e0e0e0;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    th {
+      background-color: #f5f5f5;
+      font-weight: 500;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 6px 0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      width: 100%;
+      max-width: 180px;
+      transition: background-color 0.3s;
+    }
+
+    .add-button, .edit-button, .contact-button {
+      background-color: #66bb6a;
+      color: white;
+    }
+
+    .add-button:hover, .edit-button:hover, .contact-button:hover {
+      background-color: #81c784;
+    }
+
+    .delete-button, .delete-all-button {
+      background-color: #ef5350;
+      color: white;
+    }
+
+    .delete-button:hover, .delete-all-button:hover {
+      background-color: #f44336;
+    }
+
+    .save-button {
+      background-color: #42a5f5;
+      color: white;
+    }
+
+    .save-button:hover {
+      background-color: #2196f3;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 350px;
+      margin: 0 auto;
+      background-color: #fafafa;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    input, select {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    label {
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .scrollable {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 8px 0;
+      background-color: #fafafa;
+      border-radius: 8px;
+    }
+
+    .scrollable p {
+      display: inline-block;
+      margin-right: 15px;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .charts-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .chart-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 220px;
+      height: 280px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      padding: 8px;
+    }
+
+    .chart-wrapper canvas {
+      max-width: 100%;
+    }
+
+    .chart-wrapper span {
+      font-size: 1.8rem;
+      margin-top: 8px;
+    }
+
+    #warnings {
+      margin: 15px 0;
+    }
+
+    .warning {
+      background-color: #ffcccb;
+      color: #d32f2f;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .error-message {
+      background-color: #ffcccb;
+      color: #d32f2f;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 8px 0;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .accordion-button {
+      background-color: #f5f5f5;
+      color: #222;
+      cursor: pointer;
+      padding: 12px;
+      width: 100%;
+      text-align: right;
+      border: none;
+      outline: none;
+      transition: background-color 0.3s;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 5px;
+    }
+
+    .accordion-button:hover {
+      background-color: #e0e0e0;
+    }
+
+    .accordion-content {
+      padding: 0 12px;
+      background-color: #fafafa;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      border-radius: 8px;
+    }
+
+    .accordion-content.active {
+      max-height: 450px;
+      padding: 12px;
+    }
+
+    .video-container {
+      margin: 15px 0;
+      background-color: white;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .video-container iframe {
+      max-width: 100%;
+      border-radius: 8px;
+      height: 180px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 5px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .sidebar.expanded {
+        width: 90%;
+      }
+
+      .tab-button {
+        font-size: 1.1rem;
+        padding: 10px;
+      }
+
+      table {
+        font-size: 0.9rem;
+        min-width: 450px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 1rem;
+        max-width: 160px;
+      }
+
+      input, select {
+        font-size: 1rem;
+        padding: 8px;
+      }
+
+      form {
+        max-width: 320px;
+        padding: 12px;
+      }
+
+      h2, h3 {
+        font-size: 1.3rem;
+      }
+
+      p, label {
+        font-size: 1rem;
+      }
+
+      .chart-wrapper {
+        max-width: 200px;
+        height: 260px;
+      }
+
+      .chart-wrapper span {
+        font-size: 1.6rem;
+      }
+
+      .scrollable p {
+        font-size: 1rem;
+      }
+
+      .video-container iframe {
+        height: 160px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      .menu-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+
+      .tab-button {
+        font-size: 1rem;
+        padding: 8px;
+      }
+
+      table {
+        font-size: 0.8rem;
+        min-width: 400px;
+      }
+
+      th, td {
+        padding: 6px;
+      }
+
+      button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        max-width: 140px;
+      }
+
+      input, select {
+        font-size: 0.9rem;
+        padding: 6px;
+      }
+
+      form {
+        max-width: 280px;
+        padding: 10px;
+      }
+
+      h2, h3 {
+        font-size: 1.2rem;
+      }
+
+      p, label {
+        font-size: 0.9rem;
+      }
+
+      .chart-wrapper {
+        max-width: 180px;
+        height: 240px;
+      }
+
+      .chart-wrapper span {
+        font-size: 1.4rem;
+      }
+
+      .scrollable p {
+        font-size: 0.9rem;
+      }
+
+      .video-container iframe {
+        height: 140px;
+      }
+    }
+  </style> 
+ </head> 
+ <body> 
+  <div class="container"> <button class="menu-toggle" onclick="toggleSidebar()">☰</button> 
+   <div class="sidebar" id="sidebar"> 
+    <div class="menu-items"> <button class="tab-button dashboard active" onclick="openTab(event, 'dashboard')">داشبورد</button> <button class="tab-button recommendations" onclick="openTab(event, 'recommendations')">توصیه‌ها</button> <button class="tab-button intakeHistory" onclick="openTab(event, 'intakeHistory')">تاریخچه</button> <button class="tab-button foodList" onclick="openTab(event, 'foodList')">لیست مواد غذایی</button> <button class="tab-button videos" onclick="openTab(event, 'videos')">فیلم‌ها</button> <button class="tab-button settings" onclick="openTab(event, 'settings')">تنظیمات</button> <button class="tab-button contact" onclick="openTab(event, 'contact')">ارتباط با تیم درمانی</button> 
+    </div> 
+   </div> 
+   <div class="content-area"> 
+    <h1>مدیریت تغذیه بیماران دیالیزی</h1> 
+    <div id="errorMessage" class="error-message" style="display: none;"></div> 
+    <section id="dashboard" class="tab-content"> 
+     <h2>داشبورد</h2> 
+     <div class="charts-container"> 
+      <div class="chart-wrapper"> 
+       <canvas id="sodiumChart"></canvas> <span id="sodiumSticker">😊</span> 
+      </div> 
+      <div class="chart-wrapper"> 
+       <canvas id="potassiumChart"></canvas> <span id="potassiumSticker">😊</span> 
+      </div> 
+      <div class="chart-wrapper"> 
+       <canvas id="phosphorusChart"></canvas> <span id="phosphorusSticker">😊</span> 
+      </div> 
+      <div class="chart-wrapper"> 
+       <canvas id="calciumChart"></canvas> <span id="calciumSticker">😊</span> 
+      </div> 
+      <div class="chart-wrapper"> 
+       <canvas id="proteinChart"></canvas> <span id="proteinSticker">😊</span> 
+      </div> 
+      <div class="chart-wrapper"> 
+       <canvas id="waterChart"></canvas> <span id="waterSticker">😊</span> 
+      </div> 
+     </div> 
+     <div id="warnings"></div> 
+     <div id="currentTotals" class="scrollable"> 
+      <p>سدیم مصرفی: <span id="totalSodium">0</span> واحد (<span id="totalSodiumMg">0</span> میلی‌گرم) (حد مجاز: <span id="sodiumLimitDisplay"></span> واحد)</p> 
+      <p>پتاسیم مصرفی: <span id="totalPotassium">0</span> واحد (<span id="totalPotassiumMg">0</span> میلی‌گرم) (حد مجاز: <span id="potassiumLimitDisplay"></span> واحد)</p> 
+      <p>فسفر مصرفی: <span id="totalPhosphorus">0</span> واحد (<span id="totalPhosphorusMg">0</span> میلی‌گرم) (حد مجاز: <span id="phosphorusLimitDisplay"></span> واحد)</p> 
+      <p>کلسیم مصرفی: <span id="totalCalcium">0</span> واحد (<span id="totalCalciumMg">0</span> میلی‌گرم) (حد مجاز: <span id="calciumLimitDisplay"></span> واحد)</p> 
+      <p>پروتئین مصرفی: <span id="totalProtein">0</span> واحد (<span id="totalProteinMg">0</span> میلی‌گرم) (حد مجاز: <span id="proteinLimitDisplay"></span> واحد)</p> 
+      <p>آب مصرفی: <span id="totalWater">0</span> واحد (<span id="totalWaterMl">0</span> میلی‌لیتر) (حد مجاز: <span id="waterLimitDisplay"></span> واحد)</p> 
+      <p>کالری مصرفی: <span id="totalKcal">0</span> کیلوکالری</p> 
+      <p>مقدار ادرار ۲۴ ساعته: <span id="dailyUrineOutput">0</span> میلی‌لیتر</p> 
+     </div> 
+     <h3>ثبت مصرف غذا</h3> 
+     <form id="foodIntakeForm" onsubmit="addIntake(event)"> <label for="foodSelect">انتخاب غذا:</label> <select id="foodSelect" name="foodSelect" required> <option value="">یک غذا انتخاب کنید</option> </select> <label for="quantity">مقدار (واحد):</label> 
+      <input type="number" id="quantity" name="quantity" required> <label for="mealType">وعده غذایی:</label> <select id="mealType" name="mealType" required> <option value="صبحانه">صبحانه</option> <option value="ناهار">ناهار</option> <option value="شام">شام</option> <option value="میان‌وعده">میان‌وعده</option> </select> <button type="submit" class="add-button">اضافه کردن</button> 
+     </form> 
+     <h3>ثبت مصرف آب (لیوان ۲۰۰ سی‌سی)</h3> 
+     <form id="waterIntakeForm" onsubmit="addWaterIntake(event)"> <label for="waterCups">تعداد لیوان‌ها:</label> 
+      <input type="number" id="waterCups" name="waterCups" required> <button type="submit" class="add-button">اضافه کردن</button> 
+     </form> 
+     <h3>ثبت مقدار ادرار (میلی‌لیتر)</h3> 
+     <form id="urineIntakeForm" onsubmit="addUrineOutput(event)"> <label for="urineAmount">مقدار ادرار (میلی‌لیتر):</label> 
+      <input type="number" id="urineAmount" name="urineAmount" required> <button type="submit" class="add-button">ثبت</button> 
+     </form> 
+    </section> 
+<section id="recommendations" class="tab-content"> 
+     <h2>توصیه‌های تغذیه‌ای برای بیماران همودیالیزی</h2> 
+     <div class="accordion"> 
+      <button class="accordion-button">چرا یک بیمار دیالیزی نیازبه یک رژیم خاص دارد؟</button> 
+      <div class="accordion-content"> 
+       <p>به دلیل اینکه کلیه های شما توانایی دفع مواد زاید و مایعات اضافی موجود در خون شما را به اندازه کافی ندارد و با توجه به اینکه مواد مغذی بیشتری در همودیالیز از بدن تان دفع می گردد. بنابراین ممکن است بدن شما نیازهای خاص از جمله محدودیت مایعات و تغییرات خاصی در رژیم غذایی تان داشته باشد.</p> 
+      </div> 
+      
+      <button class="accordion-button">انرژی</button> 
+      <div class="accordion-content"> 
+       <p>بیمار همودیالیزی باید انرژی کافی دریافت نماید تا پروتئین های بدنی وی صرف تامین کمبود انرژی دریافتی نگردد. انرژی مورد نیاز بیماران همودیالیزی بر اساس وزن خشک بیمار که همان وزن بعد از همودیالیز می باشد تعیین میگردد. بنابراین بیماران باید به تغییرات وزنی خود قبل و بعد از همودیالیز دقت کنند. بر اساس جدول حدود 35 کالری/کیلوگرم وزن بدن</p> 
+      </div> 
+      
+      <button class="accordion-button">پروتئین</button> 
+      <div class="accordion-content"> 
+       <p>به دلیل اینکه طی هر بار همودیالیز حدود 10 الی 13 گرم پروتئین دفع می گردد، نیاز به پروتئین در بیماران همودیالیزی بیشتر از بیماران مبتلا به نارسایی مزمن کلیه می باشد بنابراین میتوانند با آسودگی خاطر بیشتری مقادیر مجاز پروتئینی از منابع مجاز که توسط مشاور تغذیه تعیین شده، استفاده کنند. بیماران دیالیزی به علت داشتن رژیم های غذایی محدود در دوره پیش از دیالیز به تامین مقدار بیشتری پروتئین نسب به آن دوره احتیاج دارند. باید توجه شود که پروتئین دریافتی دارای ارزش بیولوژیک و کیفیت بالا باشد (مانند پروتئین حیوانی شامل گوشت سفید و قرمز کم چرب و تخم مرغ) تا اسیدآمینه های ضروری به بدن بیمار برسد. و از مصرف بالای پروتئین گیاهی تا حد امکان خودداری شود.</p> 
+      </div> 
+      
+      <button class="accordion-button">کربوهیدرات</button> 
+      <div class="accordion-content"> 
+       <p>میزان مجاز مصرف از این گروه ها توسط مشاور تغذیه محاسبه شده و در اختیار بیماران همودیالیزی قرار خواهد گرفت. میزان و نوع کربوهیدرات مصرفی به ویژه در بیماران همودیالیزی دیابتی بسیار حائز اهمیت است.</p> 
+      </div> 
+      
+      <button class="accordion-button">فسفر</button> 
+      <div class="accordion-content"> 
+       <p>جهت تنظیم سطح فسفر سرم در بیماران همودیالیزی علاوه بر رعایت رژیم غذایی این بیماران از داروهایی به نام متصل کننده های فسفر که توسط پزشک تجویز می شود نیز استفاده می کنند. بیماران همودیالیزی باید توجه کنند که باید این داروها را دقیقا قبل از غذا یا در حین غذا خوردن و یا حداکثر بلافاصله بعد از غذا خوردن مصرف نمایند.</p>
+       <p>برای محدود کردن فسفر رژیم غذایی بیماران باید نکات زیر را رعایت کنند:</p>
+       <ul>
+         <li>حذف یا محدود کردن شیر، ماست، بستنی، پنیر، دوغ، کشک، شیرکاکائو، خامه</li>
+         <li>حذف غلات کامل و نان های تهیه شده از غلات کامل و هر فرآورده غذایی حاوی سبوس</li>
+         <li>حذف حبوبات از قبیل نخود، لوبیا، عدس، ماش، لپه، باقلا و سویا</li>
+         <li>حذف نوشابه های کولادار (نوشابه های سیاه)</li>
+         <li>حذف ماهی ساردین</li>
+         <li>حذف مغزدانه ها از قبیل مغز بادام، پسته، گردو، فندق، کنجد، تخمه، کره بادام زمینی و محصولات حاوی آنها</li>
+         <li>حذف دل، جگر، قلوه و مغز</li>
+         <li>انواع گوشت ها مرغ، ماهی، گوشت قرمز (فقط به میزان تعیین شده توسط مشاور تغذیه مصرف گردند)</li>
+       </ul>
+      </div> 
+      
+      <button class="accordion-button">پتاسیم</button> 
+      <div class="accordion-content"> 
+       <p>در بیماران همودیالیزی باید سطح پتاسیم سرم دقیقا کنترل گردد. مواد غذایی که در گروه میوه ها، سبزی ها، لبنیات و گوشت ها قرار دارند غنی از پتاسیم می باشند.</p>
+       <ul>
+         <li>از گروه لبنیات کره و خامه پتاسیم کمتری دارند</li>
+         <li>سبوس و جوانه غلات غنی از پتاسیم می باشد</li>
+         <li>میوه هایی که به صورت کمپوت هستند در صورتی که آب آنها مصرف نگردد پتاسیم کمتری دارند</li>
+         <li>میوه های و سبزی های پر پتاسیم را بشناسید و فقط با نظر مشاور تغذیه استفاده نمائید و در غیر این صورت استفاده ننمائید</li>
+       </ul>
+       <p>میوه های پر پتاسیم: آلو بخارا، آب آلو، انجیر خشک، برگه زرد آلو، پرتقال، آب پرتقال، انار، خرما، خرمالو، زردآلو، شلیل، طالبی، گرمک، خربزه، کیوی، گلابی، موز، ازگیل</p>
+       <p>سبزیجات پر پتاسیم: اسفناج پخته، چغندر، کرفس پخته، قارچ پخته، بامیه، گوجه فرنگی، آب گوجه فرنگی، رب گوجه فرنگی، سبزی پخته، کدو حلوایی، فلفل تند، کلم بروکسل، سیب زمینی آب پز، تنوری یا سرخ شده</p>
+       <p>میوه وسبزی های کم پتاسیم: لوبیا سبز، کاهو، خیار، فلفل سبز شیرین، کلم خام، آب انگور، لیموشیرین، لیموترش، گلابی.</p>
+       <p>خیساندن حبوبات و دور ریختن آب آنها در کاهش پتاسیم آنها موثر می باشد.</p>
+       <p>یکی از علل افزایش پتاسیم یبوست میباشد زیرا روزانه مقدار قابل توجهی پتاسیم از مدفوع دفع میشود لذا در این بیماران باید از یبوست جلوگیری کرد.</p>
+      </div> 
+      
+      <button class="accordion-button">سدیم</button> 
+      <div class="accordion-content"> 
+       <p>دریافت سدیم در شبانه روز باید به 2تا 3گرم کاهش یابد. دفع سدیم در بیماران دیالیزی به طور کامل انجام نمی شود و تجمع سدیم می تواند باعث افزایش فشار خون و ورم شود. مصرف نکردن غذاهای حاوی نمک زیاد شامل انواع سوسیس، چیپس و غذاهای کنسرو شده اهمیت دارد. نمک لازم در غذاهای عادی همچون نان و برنج وجود دارد، از این رو نمک را به غذای فرد دیالیزی اضافه نکنید.</p>
+       <p>به طور کلی میزان دریافت سدیم و مایعات باید به میزانی باشد که حداکثر افزایش وزن بین دو جلسه متوالی همودیالیز بیشتر از 0 تا 5/1 کیلوگرم نباشد.</p>
+      </div> 
+      
+      <button class="accordion-button">مایعات</button> 
+      <div class="accordion-content"> 
+       <p>میزان دریافت مایعات روزانه در بیماران همودیالیزی باید دقیقا رعایت گردد و در نظر گرفتن مایعات موجود در مواد غذایی زیر الزامی است. یکی از مهمترین نکات تعیین حجم مایعات روزانه، همچنین به حجم ادرار روزانه توجه شود.</p>
+       <ul>
+         <li>آب موجود در مواد غذایی مایع مانند شیر، آب میوه، سوپ، قهوه، چای، نوشابه ها، شربت ها، آب کمپوت ها</li>
+         <li>آب موجود در مواد غذایی که در حالت طبیعی جامد هستند اما در درجه حرارت اتاق به شکل مایع در می آیند مانند بستنی، ژله، یخ و...</li>
+       </ul>
+       <p>توجه: رعایت نکات زیر جهت کاهش تشنگی توصیه می شود:</p>
+       <ul>
+         <li>از غذاهای حاوی سدیم زیاد مانند غذای نمک سود، خیار شور و ... پرهیز شود.</li>
+         <li>دهان را با آب شستشو داده ولی آب را فرو نبرد</li>
+         <li>بخشی از مایعات دریافتی به صورت یخ باشد.</li>
+         <li>همچنین بهتر است به آبی که میخواهید از آن یخ تهیه کنید مقداری آب لیمو اضافه کنید زیرا آب لیمو باعث تحریک ترشح بزاق میشود</li>
+         <li>میوه ها و سبزی های موجود در رژیم غذایی به صورت سرد مصرف شود</li>
+         <li>مایعات در لیوان های کوچک مصرف شود</li>
+       </ul>
+      </div> 
+      
+      <button class="accordion-button">ویتامین ها</button> 
+      <div class="accordion-content"> 
+       <p>مکمل هایی مانند کلسیم، ویتامین D، C، آهن تزریقی، کارنی تین، کمپلکس B، اسید فولیک، B6 و ... بر حسب شرایط بیمار توسط پزشک معالج تجویز می شود</p>
+      </div> 
+      
+      <button class="accordion-button">چربی</button> 
+      <div class="accordion-content"> 
+       <p>توصیه می شود که بیماران دیالیزی از روغن جامد، روغن حیوانی، گوشت ها و لبنیات پرچرب استفاده نکنند و به جای آن از روغن های کلزا، سویا، و زیتون استفاده کنند و در هنگام پخت از حرارت کم استفاده کنند.</p>
+      </div> 
+      
+      <button class="accordion-button">توصیه های تغذیه ای کلی در بیماران همودیالیزی</button> 
+      <div class="accordion-content"> 
+       <ul>
+         <li>نمک مصرفی خود را محدود کنید.</li>
+         <li>میزان دریافت خود از میوه ها و سبزی ها به خاطر محتوای پتاسیم فقط در حد توصیه شده مصرف کنید.</li>
+         <li>از مصرف مغزها از قبیل مغز بادام، پسته، فندق، گردو، تخمه و...، حبوبات، سویا، نان های سبوس دار از جمله نان جو، بیسکوئیت های سبوس دار از جمله ساقه طلایی، لبنیات، بستنی (به استثنای بستنی یخی)، دل، قلوه، جگر، مغز، سوسیس، کالباس، نوشابه به ویژه نوشابه های سیاه جدا پرهیز نمائید.</li>
+         <li>از مصرف آب خورش ها، آب گوشت ها، آب غذاها و آب کمپوت ها خودداری کنید.</li>
+         <li>از سرخ کردن غذاها در روغن و مصرف غذاهای سرخ شده تا حد امکان خودداری کنید.</li>
+         <li>حجم مایعات دریافتی بیمار معادل حجم ادرار دفعی بعلاوه 4 لیوان مایعات مجاز می باشد</li>
+       </ul>
+      </div> 
+     </div> 
+    </section>
+    <section id="intakeHistory" class="tab-content"> 
+     <h2>تاریخچه مصرف</h2> <button class="delete-all-button" onclick="deleteAllIntakes()">حذف همه</button> 
+     <div class="table-wrapper"> 
+      <table> 
+       <thead> 
+        <tr> 
+         <th>تاریخ</th> 
+         <th>نوع</th> 
+         <th>غذا/آب/ادرار</th> 
+         <th>مقدار</th> 
+         <th>سدیم (واحد | میلی‌گرم)</th> 
+         <th>پتاسیم (واحد | میلی‌گرم)</th> 
+         <th>فسفر (واحد | میلی‌گرم)</th> 
+         <th>کلسیم (واحد | میلی‌گرم)</th> 
+         <th>پروتئین (واحد | میلی‌گرم)</th> 
+         <th>آب (واحد | میلی‌لیتر)</th> 
+         <th>ادرار (ml)</th> 
+         <th>کالری (kcal)</th> 
+         <th>عملیات</th> 
+        </tr> 
+       </thead> 
+       <tbody id="intakeTableBody"></tbody> 
+      </table> 
+     </div> 
+    </section> 
+    <section id="foodList" class="tab-content"> 
+     <h2>لیست مواد غذایی</h2> 
+     <div> <label for="filterSelect">فیلتر بر اساس:</label> <select id="filterSelect" onchange="filterFoodDatabase()"> <option value="all">همه</option> <option value="lowPotassium">کم‌پتاسیم</option> <option value="lowPhosphorus">کم‌فسفر</option> <option value="lowCalcium">کم‌کلسیم</option> <option value="lowSodium">کم‌سدیم</option> </select> 
+     </div> 
+     <div class="table-wrapper"> 
+      <table> 
+       <thead> 
+        <tr> 
+         <th>نام</th> 
+         <th>سدیم (واحد | میلی‌گرم)</th> 
+         <th>پتاسیم (واحد | میلی‌گرم)</th> 
+         <th>فسفر (واحد | میلی‌گرم)</th> 
+         <th>کلسیم (واحد | میلی‌گرم)</th> 
+         <th>پروتئین (واحد | میلی‌گرم)</th> 
+         <th>آب (واحد | میلی‌لیتر)</th> 
+         <th>کالری (kcal)</th> 
+         <th>کربوهیدرات (g)</th> 
+         <th>چربی (g)</th> 
+         <th>تأثیر بر قند خون</th> 
+         <th>هشدارها</th> 
+         <th>عملیات</th> 
+        </tr> 
+       </thead> 
+       <tbody id="foodTableBody"></tbody> 
+      </table> 
+     </div> <button class="add-button" onclick="showAddFoodForm()">اضافه کردن غذا</button> 
+     <form id="addFoodForm" style="display: none;" onsubmit="addFood(event)"> 
+      <h3>اضافه کردن/ویرایش غذا</h3> 
+      <input type="hidden" id="foodIndex" name="foodIndex"> <label for="foodName">نام غذا:</label> 
+      <input type="text" id="foodName" name="foodName" required> <label for="foodSodium">سدیم (واحد):</label> 
+      <input type="number" id="foodSodium" name="foodSodium" required> <label for="foodPotassium">پتاسیم (واحد):</label> 
+      <input type="number" id="foodPotassium" name="foodPotassium" required> <label for="foodPhosphorus">فسفر (واحد):</label> 
+      <input type="number" id="foodPhosphorus" name="foodPhosphorus" required> <label for="foodCalcium">کلسیم (واحد):</label> 
+      <input type="number" id="foodCalcium" name="foodCalcium" required> <label for="foodProtein">پروتئین (واحد):</label> 
+      <input type="number" id="foodProtein" name="foodProtein" required> <label for="foodWater">آب (واحد):</label> 
+      <input type="number" id="foodWater" name="foodWater" required> <label for="foodKcal">کالری (kcal):</label> 
+      <input type="number" id="foodKcal" name="foodKcal" required> <label for="foodCarb">کربوهیدرات (g):</label> 
+      <input type="number" id="foodCarb" name="foodCarb" required> <label for="foodFat">چربی (g):</label> 
+      <input type="number" id="foodFat" name="foodFat" required> <button type="submit" class="save-button">ذخیره</button> 
+     </form> 
+    </section> 
+    <section id="videos" class="tab-content"> 
+     <h2>فیلم‌های آموزشی</h2> 
+     <div class="video-container"> 
+      <h3>آموزش رژیم غذایی برای بیماران دیالیزی</h3> <iframe src="https://www.aparat.com/video/video/embed/videohash/N5W2O/vt/frame" allowfullscreen="true" width="100%" height="180"></iframe> 
+     </div> 
+     <div class="video-container"> 
+      <h3>نکات مهم برای بیماران همودیالیزی</h3> <iframe src="https://www.aparat.com/video/video/embed/videohash/1a2b3/vt/frame" allowfullscreen="true" width="100%" height="180"></iframe> 
+     </div> 
+    </section> 
+    <section id="settings" class="tab-content"> 
+     <h2>تنظیمات</h2> 
+     <form id="settingsForm" onsubmit="saveSettings(event)"> <label for="ibw">وزن ایده‌آل بدن (IBW) (کیلوگرم):</label> <small>وزن ایده‌آل بیمار (کیلوگرم) را وارد کنید تا حدود مواد مغذی محاسبه شود.</small> 
+      <input type="number" id="ibw" name="ibw" placeholder="وزن ایده‌آل خود را وارد کنید"> <label for="urineOutput">حجم ادرار روزانه (میلی‌لیتر):</label> <small>حجم ادرار روزانه بیمار (میلی‌لیتر) را وارد کنید.</small> 
+      <input type="number" id="urineOutput" name="urineOutput" placeholder="حجم ادرار روزانه"> <label for="minimumUrineOutput">حداقل مقدار ادرار مجاز (میلی‌لیتر):</label> <small>حداقل ادرار مجاز (میلی‌لیتر) را وارد کنید تا هشدار نمایش داده شود.</small> 
+      <input type="number" id="minimumUrineOutput" name="minimumUrineOutput" placeholder="حداقل مقدار ادرار"> <label for="sodiumLimit">حد سدیم (واحد، ۱ واحد = ۱۰۰ میلی‌گرم):</label> <small>حد مجاز سدیم (واحد) را وارد کنید تا مصرف روزانه کنترل شود.</small> 
+      <input type="number" id="sodiumLimit" name="sodiumLimit" required oninput="updateLimitDisplays()"> <small>معادل: <span id="sodiumLimitMg">0</span> میلی‌گرم</small> <label for="potassiumLimit">حد پتاسیم (واحد، ۱ واحد = ۱۰۰ میلی‌گرم):</label> <small>حد مجاز پتاسیم (واحد) را وارد کنید تا از مصرف زیاد جلوگیری شود.</small> 
+      <input type="number" id="potassiumLimit" name="potassiumLimit" required oninput="updateLimitDisplays()"> <small>معادل: <span id="potassiumLimitMg">0</span> میلی‌گرم</small> <label for="phosphorusLimit">حد فسفر (واحد، ۱ واحد = ۱۰۰ میلی‌گرم):</label> <small>حد مجاز فسفر (واحد) را وارد کنید تا سلامت استخوان‌ها حفظ شود.</small> 
+      <input type="number" id="phosphorusLimit" name="phosphorusLimit" required oninput="updateLimitDisplays()"> <small>معادل: <span id="phosphorusLimitMg">0</span> میلی‌گرم</small> <label for="calciumLimit">حد کلسیم (واحد، ۱ واحد = ۱۰۰ میلی‌گرم):</label> <small>حد مجاز کلسیم (واحد) را وارد کنید تا از رسوب در عروق جلوگیری شود.</small> 
+      <input type="number" id="calciumLimit" name="calciumLimit" required oninput="updateLimitDisplays()"> <small>معادل: <span id="calciumLimitMg">0</span> میلی‌گرم</small> <label for="proteinLimit">حد پروتئین (واحد، ۱ واحد = ۱۰ گرم):</label> <small>حد مجاز پروتئین (واحد) را وارد کنید تا بار کلیه‌ها کنترل شود.</small> 
+      <input type="number" id="proteinLimit" name="proteinLimit" required oninput="updateLimitDisplays()"> <small>معادل: <span id="proteinLimitMg">0</span> میلی‌گرم</small> <label for="waterLimit">حد آب (واحد، ۱ واحد = ۱۰۰ میلی‌لیتر):</label> <small>حد مجاز آب (واحد) را وارد کنید تا از تورم جلوگیری شود.</small> 
+      <input type="number" id="waterLimit" name="waterLimit" required oninput="updateLimitDisplays()"> <small>معادل: <span id="waterLimitMl">0</span> میلی‌لیتر</small> <label for="backgroundColor">رنگ پس‌زمینه:</label> <small>رنگ پس‌زمینه اپلیکیشن را انتخاب کنید.</small> 
+      <input type="color" id="backgroundColor" name="backgroundColor"> <label for="textColor">رنگ متن:</label> <small>رنگ متن اپلیکیشن را انتخاب کنید.</small> 
+      <input type="color" id="textColor" name="textColor"> <label for="fontSize">اندازه فونت:</label> <small>اندازه فونت متن را برای خوانایی بهتر انتخاب کنید.</small> <select id="fontSize" name="fontSize"> <option value="small">کوچک</option> <option value="medium">متوسط</option> <option value="large" selected>بزرگ</option> </select> <button type="submit">ذخیره</button> 
+     </form> 
+    </section> 
+    <section id="contact" class="tab-content"> 
+     <h2>ارتباط با تیم درمانی</h2> 
+     <p>برای ارتباط با تیم درمانی و مطرح کردن سوالات خود، روی دکمه زیر کلیک کنید:</p> <button class="contact-button" onclick="sendSMS()">ارسال پیامک به تیم درمانی</button> 
+    </section> 
+   </div> 
+  </div> 
+  <script>
+    function generateDeviceId() {
+      const userAgent = navigator.userAgent;
+      const randomString = Math.random().toString(36).substring(2, 15);
+      return btoa(userAgent + randomString).substring(0, 20);
+    }
+
+    const deviceId = localStorage.getItem('deviceId') || generateDeviceId();
+    localStorage.setItem('deviceId', deviceId);
+
+    const storageKey = `dialysisAppData_${deviceId}`;
+    let userData = {};
+    try {
+      userData = JSON.parse(localStorage.getItem(storageKey)) || {};
+    } catch (e) {
+      console.error('Error loading data from localStorage:', e);
+      userData = {};
+    }
+
+    userData = {
+      intakeHistory: userData.intakeHistory || [],
+      foodDB: userData.foodDB || [
+         { name: 'مرغ', sodium: 0.7, potassium: 2.8, phosphorus: 2, calcium: 0.1, protein: 2.5, water: 0.65, carb: 0, fat: 0, kcal: 165, bloodSugarImpact: 'نامشخص', restrictions: { phosphorus: 'high', potassium: 'moderate' } },
+        { name: 'سیب', sodium: 0.01, potassium: 1.07, phosphorus: 0.11, calcium: 0.06, protein: 0.026, water: 85.56, carb: 14.36, fat: 0.17, kcal: 52, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'پرتقال', sodium: 0.0, potassium: 1.81, phosphorus: 0.14, calcium: 0.4, protein: 0.094, water: 86.75, carb: 11.75, fat: 0.12, kcal: 47, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'گریپ فروت', sodium: 0.0, potassium: 1.35, phosphorus: 0.18, calcium: 0.22, protein: 0.077, water: 88.06, carb: 10.66, fat: 0.14, kcal: 42, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'نارنگی', sodium: 0.02, potassium: 1.66, phosphorus: 0.2, calcium: 0.37, protein: 0.081, water: 85.17, carb: 13.34, fat: 0.31, kcal: 53, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'موز', sodium: 0.01, potassium: 3.58, phosphorus: 0.22, calcium: 0.05, protein: 0.109, water: 74.91, carb: 22.84, fat: 0.33, kcal: 89, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'زردآلو', sodium: 0.01, potassium: 2.59, phosphorus: 0.23, calcium: 0.13, protein: 0.14, water: 86.35, carb: 11.12, fat: 0.39, kcal: 48, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'هلو', sodium: 0.0, potassium: 1.9, phosphorus: 0.2, calcium: 0.06, protein: 0.091, water: 88.87, carb: 9.54, fat: 0.25, kcal: 39, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'شلیل', sodium: 0.0, potassium: 1.9, phosphorus: 0.2, calcium: 0.06, protein: 0.11, water: 87.0, carb: 10.55, fat: 0.32, kcal: 44, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'آلو', sodium: 0.0, potassium: 1.57, phosphorus: 0.16, calcium: 0.06, protein: 0.07, water: 87.23, carb: 11.42, fat: 0.28, kcal: 46, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'کیوی', sodium: 0.03, potassium: 3.12, phosphorus: 0.34, calcium: 0.34, protein: 0.113, water: 83.0, carb: 14.66, fat: 0.52, kcal: 61, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'توت فرنگی', sodium: 0.01, potassium: 1.53, phosphorus: 0.24, calcium: 0.16, protein: 0.067, water: 90.95, carb: 7.68, fat: 0.3, kcal: 32, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'گیلاس و آلبالو', sodium: 0.03, potassium: 1.5, phosphorus: 0.15, calcium: 0.13, protein: 0.1, water: 82.25, carb: 16.01, fat: 0.2, kcal: 63, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'انگور', sodium: 0.02, potassium: 1.91, phosphorus: 0.1, calcium: 0.1, protein: 0.063, water: 81.0, carb: 18.1, fat: 0.16, kcal: 69, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'توت', sodium: 0.1, potassium: 1.94, phosphorus: 0.38, calcium: 0.29, protein: 0.144, water: 85.0, carb: 14.49, fat: 0.49, kcal: 61, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'سیاه توت', sodium: 0.01, potassium: 1.62, phosphorus: 0.22, calcium: 0.39, protein: 0.139, water: 88.0, carb: 9.61, fat: 0.39, kcal: 43, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'بلوبری', sodium: 0.01, potassium: 0.77, phosphorus: 0.12, calcium: 0.06, protein: 0.074, water: 84.21, carb: 14.49, fat: 0.33, kcal: 57, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'خرمالو', sodium: 0.01, potassium: 1.61, phosphorus: 0.17, calcium: 0.08, protein: 0.058, water: 80.0, carb: 18.59, fat: 0.19, kcal: 70, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'انجیر', sodium: 0.01, potassium: 2.32, phosphorus: 0.14, calcium: 0.35, protein: 0.075, water: 79.11, carb: 19.18, fat: 0.3, kcal: 74, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'به', sodium: 0.04, potassium: 1.97, phosphorus: 0.17, calcium: 0.11, protein: 0.04, water: 83.8, carb: 15.3, fat: 0.1, kcal: 57, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'انبه', sodium: 0.01, potassium: 1.68, phosphorus: 0.14, calcium: 0.11, protein: 0.082, water: 83.46, carb: 14.98, fat: 0.38, kcal: 60, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'گلابی', sodium: 0.01, potassium: 1.16, phosphorus: 0.12, calcium: 0.09, protein: 0.036, water: 83.96, carb: 15.23, fat: 0.14, kcal: 57, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'آناناس', sodium: 0.01, potassium: 1.09, phosphorus: 0.08, calcium: 0.13, protein: 0.054, water: 86.0, carb: 13.12, fat: 0.12, kcal: 50, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'انار', sodium: 0.03, potassium: 2.36, phosphorus: 0.36, calcium: 0.1, protein: 0.167, water: 77.93, carb: 18.7, fat: 1.17, kcal: 83, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'طالبی', sodium: 0.18, potassium: 2.28, phosphorus: 0.11, calcium: 0.09, protein: 0.054, water: 90.15, carb: 8.16, fat: 0.19, kcal: 34, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'گرمک', sodium: 0.16, potassium: 2.67, phosphorus: 0.15, calcium: 0.11, protein: 0.084, water: 90.0, carb: 8.0, fat: 0.2, kcal: 34, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'هندوانه', sodium: 0.01, potassium: 1.12, phosphorus: 0.11, calcium: 0.07, protein: 0.061, water: 91.45, carb: 7.55, fat: 0.15, kcal: 30, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'لیموترش', sodium: 0.02, potassium: 1.38, phosphorus: 0.16, calcium: 0.26, protein: 0.11, water: 88.98, carb: 9.32, fat: 0.3, kcal: 29, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'گوجه فرنگی', sodium: 0.05, potassium: 2.37, phosphorus: 0.24, calcium: 0.1, protein: 0.088, water: 94.5, carb: 3.89, fat: 0.2, kcal: 18, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'خیار', sodium: 0.02, potassium: 1.47, phosphorus: 0.24, calcium: 0.16, protein: 0.065, water: 95.23, carb: 3.63, fat: 0.11, kcal: 15, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'خیار شور', sodium: 12.08, potassium: 0.23, phosphorus: 0.14, calcium: 0.57, protein: 0.033, water: 95.0, carb: 2.4, fat: 0.2, kcal: 12, bloodSugarImpact: 'کم', restrictions: { sodium: 'high' } },
+        { name: 'هویج', sodium: 0.69, potassium: 3.2, phosphorus: 0.35, calcium: 0.33, protein: 0.093, water: 88.29, carb: 9.58, fat: 0.24, kcal: 41, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'سیب زمینی پخته', sodium: 0.04, potassium: 3.79, phosphorus: 0.44, calcium: 0.13, protein: 0.187, water: 78.96, carb: 21.15, fat: 0.1, kcal: 93, bloodSugarImpact: 'زیاد', restrictions: {} },
+        { name: 'پیاز', sodium: 0.04, potassium: 1.46, phosphorus: 0.29, calcium: 0.23, protein: 0.11, water: 89.11, carb: 9.34, fat: 0.1, kcal: 40, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'سیر', sodium: 0.17, potassium: 4.01, phosphorus: 1.53, calcium: 1.81, protein: 0.636, water: 58.58, carb: 33.06, fat: 0.5, kcal: 149, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'فلفل دلمه‌ای', sodium: 0.03, potassium: 1.75, phosphorus: 0.2, calcium: 0.07, protein: 0.086, water: 92.0, carb: 6.03, fat: 0.17, kcal: 26, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'فلفل تند', sodium: 0.09, potassium: 3.22, phosphorus: 0.43, calcium: 0.14, protein: 0.187, water: 88.0, carb: 8.81, fat: 0.44, kcal: 40, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'کدو سبز پخته', sodium: 0.01, potassium: 4.59, phosphorus: 0.44, calcium: 0.18, protein: 0.12, water: 94.0, carb: 3.0, fat: 0.3, kcal: 20, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'قارچ', sodium: 0.05, potassium: 3.18, phosphorus: 0.86, calcium: 0.03, protein: 0.309, water: 92.0, carb: 3.26, fat: 0.34, kcal: 22, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'کاهو', sodium: 0.28, potassium: 1.94, phosphorus: 0.29, calcium: 0.36, protein: 0.136, water: 95.0, carb: 2.87, fat: 0.15, kcal: 15, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'کلم پیچ', sodium: 0.2, potassium: 3.5, phosphorus: 0.6, calcium: 1.5, protein: 0.338, water: 90.0, carb: 5.0, fat: 0.1, kcal: 35, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'گل کلم', sodium: 0.3, potassium: 1.42, phosphorus: 0.44, calcium: 0.22, protein: 0.192, water: 92.0, carb: 4.97, fat: 0.28, kcal: 25, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'کلم قرمز', sodium: 0.27, potassium: 2.43, phosphorus: 0.3, calcium: 0.45, protein: 0.143, water: 90.0, carb: 7.37, fat: 0.16, kcal: 31, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'کلم بروکلی', sodium: 0.33, potassium: 3.16, phosphorus: 0.66, calcium: 0.47, protein: 0.282, water: 89.0, carb: 6.64, fat: 0.37, kcal: 35, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'اسفناج', sodium: 0.39, potassium: 2.33, phosphorus: 0.2, calcium: 0.99, protein: 0.068, water: 91.4, carb: 3.63, fat: 0.39, kcal: 23, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'شلغم آبپز', sodium: 0.16, potassium: 1.77, phosphorus: 0.26, calcium: 0.3, protein: 0.071, water: 94.0, carb: 6.0, fat: 0.1, kcal: 22, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'لوبیا سبز آبپز', sodium: 0.01, potassium: 1.46, phosphorus: 0.29, calcium: 0.37, protein: 0.189, water: 90.0, carb: 7.0, fat: 0.2, kcal: 35, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'نخود فرنگی آبپز', sodium: 0.03, potassium: 2.71, phosphorus: 1.17, calcium: 0.25, protein: 0.536, water: 78.0, carb: 14.45, fat: 0.4, kcal: 81, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'باقالی آبپز', sodium: 0.05, potassium: 2.68, phosphorus: 1.25, calcium: 0.36, protein: 0.76, water: 72.0, carb: 19.65, fat: 0.4, kcal: 110, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'کنگر آبپز', sodium: 0.6, potassium: 2.86, phosphorus: 0.73, calcium: 0.44, protein: 0.289, water: 84.0, carb: 11.0, fat: 0.3, kcal: 53, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'چغندر آبپز', sodium: 0.77, potassium: 3.05, phosphorus: 0.38, calcium: 0.16, protein: 0.168, water: 87.0, carb: 9.96, fat: 0.18, kcal: 44, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'بامیه', sodium: 0.07, potassium: 2.99, phosphorus: 0.61, calcium: 0.81, protein: 0.193, water: 90.0, carb: 7.0, fat: 0.2, kcal: 33, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'کرفس', sodium: 0.8, potassium: 2.6, phosphorus: 0.24, calcium: 0.4, protein: 0.069, water: 95.0, carb: 2.97, fat: 0.17, kcal: 16, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'پیازچه', sodium: 0.16, potassium: 2.76, phosphorus: 0.37, calcium: 0.72, protein: 0.183, water: 90.0, carb: 7.0, fat: 0.2, kcal: 32, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'تره فرنگی', sodium: 0.2, potassium: 1.8, phosphorus: 0.35, calcium: 0.59, protein: 0.15, water: 83.0, carb: 14.0, fat: 0.3, kcal: 61, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'تره', sodium: 0.03, potassium: 2.96, phosphorus: 0.58, calcium: 0.81, protein: 0.327, water: 85.0, carb: 8.0, fat: 0.7, kcal: 50, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'گشنیز', sodium: 0.46, potassium: 5.21, phosphorus: 0.48, calcium: 0.67, protein: 0.213, water: 92.0, carb: 3.67, fat: 0.52, kcal: 23, bloodSugarImpact: 'کم', restrictions: { potassium: 'high' } },
+        { name: 'جعفری', sodium: 0.56, potassium: 5.54, phosphorus: 0.58, calcium: 1.38, protein: 0.297, water: 87.0, carb: 6.0, fat: 0.8, kcal: 36, bloodSugarImpact: 'کم', restrictions: { potassium: 'high' } },
+        { name: 'شاهی', sodium: 0.3, potassium: 3.3, phosphorus: 0.6, calcium: 1.2, protein: 0.26, water: 95.0, carb: 1.29, fat: 0.7, kcal: 32, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'ریحان', sodium: 0.04, potassium: 2.95, phosphorus: 0.56, calcium: 1.77, protein: 0.315, water: 92.0, carb: 2.65, fat: 0.64, kcal: 23, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'شنبلیله', sodium: 0.61, potassium: 7.38, phosphorus: 0.66, calcium: 1.76, protein: 0.346, water: 88.0, carb: 6.0, fat: 0.6, kcal: 49, bloodSugarImpact: 'کم', restrictions: { potassium: 'high' } },
+        { name: 'ترخون خشک', sodium: 0.62, potassium: 30.2, phosphorus: 3.13, calcium: 11.39, protein: 2.27, water: 7.0, carb: 50.0, fat: 7.0, kcal: 295, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'نعناع', sodium: 0.31, potassium: 5.69, phosphorus: 0.73, calcium: 2.43, protein: 0.38, water: 86.0, carb: 8.0, fat: 0.9, kcal: 70, bloodSugarImpact: 'کم', restrictions: { potassium: 'high' } },
+        { name: 'برنج پخته', sodium: 0.01, potassium: 0.35, phosphorus: 0.43, calcium: 0.1, protein: 0.269, water: 68.44, carb: 28.17, fat: 0.28, kcal: 130, bloodSugarImpact: 'زیاد', restrictions: {} },
+        { name: 'برنج قهوه‌ای پخته', sodium: 0.05, potassium: 0.43, phosphorus: 0.77, calcium: 0.1, protein: 0.252, water: 70.0, carb: 23.0, fat: 0.9, kcal: 111, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'نان سنگک', sodium: 4.9, potassium: 1.26, phosphorus: 0.98, calcium: 0.47, protein: 0.885, water: 37.0, carb: 58.0, fat: 1.2, kcal: 270, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+        { name: 'نان تافتون', sodium: 4.9, potassium: 1.19, phosphorus: 0.98, calcium: 0.47, protein: 0.885, water: 35.0, carb: 55.0, fat: 1.0, kcal: 260, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+        { name: 'نان لواش', sodium: 4.9, potassium: 1.15, phosphorus: 0.98, calcium: 0.47, protein: 0.885, water: 33.0, carb: 52.0, fat: 0.8, kcal: 250, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+        { name: 'نان بربری', sodium: 5.0, potassium: 1.2, phosphorus: 0.98, calcium: 0.47, protein: 0.885, water: 36.0, carb: 56.0, fat: 1.1, kcal: 265, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+        { name: 'نان باگت', sodium: 5.1, potassium: 1.13, phosphorus: 0.96, calcium: 0.44, protein: 0.88, water: 34.0, carb: 53.0, fat: 1.0, kcal: 255, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+        { name: 'نان تست', sodium: 5.11, potassium: 1.15, phosphorus: 0.98, calcium: 0.47, protein: 0.885, water: 35.0, carb: 50.0, fat: 3.5, kcal: 270, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+        { name: 'بلغور گندم پخته', sodium: 0.05, potassium: 0.68, phosphorus: 0.4, calcium: 0.1, protein: 0.308, water: 76.0, carb: 18.0, fat: 0.2, kcal: 83, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'جو پرک پخته', sodium: 0.06, potassium: 0.7, phosphorus: 0.77, calcium: 0.2, protein: 0.25, water: 84.0, carb: 12.0, fat: 0.5, kcal: 71, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'جو دوسر پخته', sodium: 0.02, potassium: 0.7, phosphorus: 0.77, calcium: 0.2, protein: 0.25, water: 84.0, carb: 12.0, fat: 0.5, kcal: 71, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'ذرت', sodium: 0.15, potassium: 2.7, phosphorus: 0.89, calcium: 0.02, protein: 0.327, water: 76.0, carb: 19.0, fat: 1.2, kcal: 86, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'کینوا پخته', sodium: 0.07, potassium: 1.72, phosphorus: 1.52, calcium: 0.17, protein: 0.141, water: 72.0, carb: 21.0, fat: 1.9, kcal: 120, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'گندم کامل پخته', sodium: 0.02, potassium: 1.35, phosphorus: 1.32, calcium: 0.13, protein: 0.548, water: 62.0, carb: 28.0, fat: 0.7, kcal: 132, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'پاستا پخته', sodium: 0.01, potassium: 0.44, phosphorus: 0.58, calcium: 0.07, protein: 0.509, water: 62.0, carb: 25.0, fat: 1.1, kcal: 131, bloodSugarImpact: 'زیاد', restrictions: {} },
+        { name: 'نخود پخته', sodium: 0.07, potassium: 2.91, phosphorus: 1.68, calcium: 0.49, protein: 0.886, water: 60.21, carb: 27.42, fat: 2.59, kcal: 164, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'لوبیا سفید پخته', sodium: 0.06, potassium: 5.61, phosphorus: 1.13, calcium: 0.69, protein: 0.974, water: 63.0, carb: 25.0, fat: 0.4, kcal: 139, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high' } },
+        { name: 'لوبیا قرمز پخته', sodium: 0.02, potassium: 4.03, phosphorus: 1.42, calcium: 0.28, protein: 0.89, water: 67.0, carb: 22.8, fat: 0.5, kcal: 127, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'عدس سبز پخته', sodium: 0.06, potassium: 3.16, phosphorus: 1.8, calcium: 0.19, protein: 0.899, water: 69.0, carb: 20.0, fat: 0.4, kcal: 116, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'عدس قرمز پخته', sodium: 0.02, potassium: 3.69, phosphorus: 1.8, calcium: 0.19, protein: 0.899, water: 70.0, carb: 20.0, fat: 0.4, kcal: 116, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'لوبیا چیتی پخته', sodium: 0.01, potassium: 4.55, phosphorus: 1.37, calcium: 0.61, protein: 0.863, water: 66.0, carb: 22.0, fat: 0.5, kcal: 123, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'لوبیا چشم بلبلی پخته', sodium: 0.04, potassium: 2.78, phosphorus: 1.56, calcium: 0.24, protein: 0.776, water: 70.0, carb: 20.0, fat: 0.5, kcal: 116, bloodSugarImpact: 'متوسط', restrictions: {} },
+        { name: 'لپه پخته', sodium: 0.05, potassium: 7.1, phosphorus: 1.27, calcium: 0.55, protein: 0.833, water: 67.0, carb: 21.0, fat: 0.4, kcal: 118, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high' } },
+        { name: 'سویا پخته', sodium: 0.01, potassium: 5.15, phosphorus: 2.45, calcium: 1.02, protein: 1.66, water: 62.55, carb: 9.93, fat: 8.97, kcal: 173, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'بادام', sodium: 0.01, potassium: 7.33, phosphorus: 4.81, calcium: 2.69, protein: 2.11, water: 4.41, carb: 21.55, fat: 49.93, kcal: 579, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'بادام هندی', sodium: 0.12, potassium: 6.6, phosphorus: 5.93, calcium: 0.37, protein: 1.82, water: 5.2, carb: 30.19, fat: 43.85, kcal: 553, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'بادام زمینی', sodium: 0.18, potassium: 7.05, phosphorus: 3.76, calcium: 0.92, protein: 2.57, water: 6.5, carb: 16.13, fat: 49.24, kcal: 567, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'پسته', sodium: 0.01, potassium: 10.25, phosphorus: 4.9, calcium: 1.05, protein: 2.01, water: 4.37, carb: 27.17, fat: 45.32, kcal: 560, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'فندق', sodium: 0.0, potassium: 6.8, phosphorus: 2.9, calcium: 1.14, protein: 1.49, water: 5.31, carb: 16.7, fat: 60.75, kcal: 628, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'گردو', sodium: 0.02, potassium: 4.41, phosphorus: 3.46, calcium: 0.98, protein: 1.52, water: 4.07, carb: 13.71, fat: 65.21, kcal: 654, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'تخم آفتابگردان', sodium: 0.09, potassium: 6.45, phosphorus: 11.55, calcium: 0.78, protein: 2.07, water: 4.73, carb: 20.0, fat: 51.46, kcal: 584, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'تخم کدو', sodium: 0.18, potassium: 9.19, phosphorus: 9.2, calcium: 0.55, protein: 3.02, water: 4.5, carb: 10.71, fat: 49.05, kcal: 559, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'کنجد', sodium: 0.11, potassium: 4.68, phosphorus: 6.29, calcium: 9.75, protein: 1.77, water: 4.69, carb: 23.45, fat: 49.67, kcal: 573, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'high', protein: 'high', calcium: 'high' } },
+        { name: 'ماهی', sodium: 0.61, potassium: 3.84, phosphorus: 2.54, calcium: 0.15, protein: 2.24, water: 70.0, carb: 0, fat: 5.0, kcal: 150, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'گوشت گوساله', sodium: 0.68, potassium: 3.18, phosphorus: 2.0, calcium: 0.12, protein: 2.54, water: 71.0, carb: 0, fat: 7.0, kcal: 170, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'تخم مرغ', sodium: 1.24, potassium: 1.38, phosphorus: 1.98, calcium: 0.56, protein: 1.26, water: 76.15, carb: 0.72, fat: 9.51, kcal: 143, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'شیر', sodium: 0.44, potassium: 1.5, phosphorus: 0.91, calcium: 1.25, protein: 0.33, water: 88.0, carb: 4.8, fat: 3.3, kcal: 61, bloodSugarImpact: 'متوسط', restrictions: { calcium: 'high', phosphorus: 'moderate' } },
+        { name: 'ماست', sodium: 0.46, potassium: 1.55, phosphorus: 0.95, calcium: 1.21, protein: 0.34, water: 88.0, carb: 4.7, fat: 3.3, kcal: 61, bloodSugarImpact: 'متوسط', restrictions: { calcium: 'high', phosphorus: 'moderate' } },
+        { name: 'پنیر', sodium: 6.29, potassium: 0.76, phosphorus: 4.55, calcium: 7.1, protein: 2.28, water: 37.0, carb: 3.1, fat: 33.0, kcal: 403, bloodSugarImpact: 'کم', restrictions: { sodium: 'high', calcium: 'high', phosphorus: 'high', protein: 'high' } },
+        { name: 'کره', sodium: 6.43, potassium: 0.24, phosphorus: 0.24, calcium: 0.24, protein: 0.085, water: 16.0, carb: 0.06, fat: 81.0, kcal: 717, bloodSugarImpact: 'کم', restrictions: { sodium: 'high' } },
+        { name: 'خامه', sodium: 0.38, potassium: 1.22, phosphorus: 0.6, calcium: 0.65, protein: 0.205, water: 58.0, carb: 2.8, fat: 37.0, kcal: 345, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'عسل', sodium: 0.04, potassium: 0.52, phosphorus: 0.04, calcium: 0.06, protein: 0.03, water: 17.1, carb: 82.4, fat: 0, kcal: 304, bloodSugarImpact: 'زیاد', restrictions: {} },
+        { name: 'شکر', sodium: 0.01, potassium: 0.02, phosphorus: 0, calcium: 0.01, protein: 0, water: 0.02, carb: 100.0, fat: 0, kcal: 387, bloodSugarImpact: 'زیاد', restrictions: {} },
+        { name: 'مربا', sodium: 0.32, potassium: 0.77, phosphorus: 0.19, calcium: 0.2, protein: 0.037, water: 30.0, carb: 68.0, fat: 0.1, kcal: 278, bloodSugarImpact: 'زیاد', restrictions: {} },
+        { name: 'روغن زیتون', sodium: 0.02, potassium: 0.01, phosphorus: 0, calcium: 0.01, protein: 0, water: 0, carb: 0, fat: 100.0, kcal: 884, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'روغن آفتابگردان', sodium: 0, potassium: 0, phosphorus: 0, calcium: 0, protein: 0, water: 0, carb: 0, fat: 100.0, kcal: 884, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'چای', sodium: 0.03, potassium: 0.88, phosphorus: 0.01, calcium: 0, protein: 0, water: 99.7, carb: 0.3, fat: 0, kcal: 1, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'قهوه', sodium: 0.02, potassium: 0.49, phosphorus: 0.03, calcium: 0.02, protein: 0.012, water: 98.0, carb: 0, fat: 0.02, kcal: 1, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'آب', sodium: 0, potassium: 0, phosphorus: 0, calcium: 0, protein: 0, water: 100.0, carb: 0, fat: 0, kcal: 0, bloodSugarImpact: 'کم', restrictions: {} },
+        { name: 'گوشت گوسفندی', sodium: 0.72, potassium: 3.1, phosphorus: 1.9, calcium: 0.16, protein: 2.45, water: 70.5, carb: 0, fat: 8.0, kcal: 180, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'جگر گوسفندی', sodium: 0.85, potassium: 3.8, phosphorus: 4.0, calcium: 0.1, protein: 2.0, water: 71.0, carb: 1.8, fat: 5.0, kcal: 139, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'دل گوسفندی', sodium: 1.0, potassium: 3.2, phosphorus: 2.8, calcium: 0.07, protein: 1.8, water: 77.0, carb: 0, fat: 4.8, kcal: 122, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'قلوه گوسفندی', sodium: 1.2, potassium: 3.0, phosphorus: 2.9, calcium: 0.09, protein: 1.7, water: 78.0, carb: 0.8, fat: 3.5, kcal: 105, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'زبان گوسفندی', sodium: 0.9, potassium: 2.7, phosphorus: 2.0, calcium: 0.1, protein: 1.9, water: 73.0, carb: 0, fat: 12.0, kcal: 192, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'مغز گوسفندی', sodium: 1.3, potassium: 3.0, phosphorus: 3.8, calcium: 0.2, protein: 1.2, water: 78.0, carb: 0, fat: 9.0, kcal: 145, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+        { name: 'کله پاچه', sodium: 1.5, potassium:{ potassium: 'high' } },
+{ name: 'تخم مرغ آبپز', sodium: 1.24, potassium: 1.26, phosphorus: 1.72, calcium: 0.5, protein: 1.26, water: 74.6, carb: 1.12, fat: 10.61, kcal: 155, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+{ name: 'املت', sodium: 1.4, potassium: 1.5, phosphorus: 2.0, calcium: 0.6, protein: 1.4, water: 70.0, carb: 1.5, fat: 12.0, kcal: 180, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+{ name: 'سوسیس', sodium: 8.2, potassium: 2.3, phosphorus: 1.5, calcium: 0.12, protein: 1.2, water: 56.0, carb: 2.0, fat: 27.0, kcal: 300, bloodSugarImpact: 'کم', restrictions: { sodium: 'high', phosphorus: 'moderate' } },
+{ name: 'کالباس', sodium: 9.0, potassium: 2.0, phosphorus: 1.6, calcium: 0.1, protein: 1.0, water: 60.0, carb: 3.0, fat: 22.0, kcal: 250, bloodSugarImpact: 'کم', restrictions: { sodium: 'high', phosphorus: 'moderate' } },
+{ name: 'کباب کوبیده', sodium: 1.5, potassium: 3.5, phosphorus: 2.2, calcium: 0.2, protein: 2.6, water: 65.0, carb: 0, fat: 15.0, kcal: 220, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+{ name: 'جوجه کباب', sodium: 1.2, potassium: 2.8, phosphorus: 2.0, calcium: 0.15, protein: 2.5, water: 68.0, carb: 0, fat: 10.0, kcal: 180, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+{ name: 'ماهی سرخ‌شده', sodium: 1.5, potassium: 3.5, phosphorus: 2.5, calcium: 0.2, protein: 2.2, water: 65.0, carb: 5.0, fat: 15.0, kcal: 230, bloodSugarImpact: 'کم', restrictions: { phosphorus: 'high', protein: 'high' } },
+{ name: 'تن ماهی', sodium: 3.5, potassium: 2.5, phosphorus: 2.0, calcium: 0.1, protein: 2.6, water: 60.0, carb: 0, fat: 8.0, kcal: 180, bloodSugarImpact: 'کم', restrictions: { sodium: 'high', phosphorus: 'high', protein: 'high' } },
+{ name: 'کنسرو لوبیا', sodium: 3.5, potassium: 3.0, phosphorus: 1.2, calcium: 0.5, protein: 0.8, water: 70.0, carb: 20.0, fat: 0.5, kcal: 100, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high' } },
+{ name: 'کنسرو ذرت', sodium: 2.5, potassium: 2.0, phosphorus: 0.8, calcium: 0.05, protein: 0.3, water: 75.0, carb: 18.0, fat: 1.0, kcal: 80, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high' } },
+{ name: 'کنسرو نخودفرنگی', sodium: 2.8, potassium: 2.5, phosphorus: 1.0, calcium: 0.2, protein: 0.5, water: 80.0, carb: 14.0, fat: 0.5, kcal: 70, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high' } },
+{ name: 'زیتون', sodium: 7.35, potassium: 0.08, phosphorus: 0.03, calcium: 0.88, protein: 0.08, water: 80.0, carb: 6.0, fat: 10.7, kcal: 115, bloodSugarImpact: 'کم', restrictions: { sodium: 'high' } },
+{ name: 'ترشی', sodium: 10.0, potassium: 1.0, phosphorus: 0.2, calcium: 0.3, protein: 0.05, water: 90.0, carb: 5.0, fat: 0.2, kcal: 20, bloodSugarImpact: 'کم', restrictions: { sodium: 'high' } },
+{ name: 'سس گوجه فرنگی', sodium: 4.0, potassium: 3.0, phosphorus: 0.3, calcium: 0.1, protein: 0.1, water: 70.0, carb: 26.0, fat: 0.2, kcal: 112, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high' } },
+{ name: 'سس مایونز', sodium: 6.0, potassium: 0.2, phosphorus: 0.2, calcium: 0.08, protein: 0.09, water: 22.0, carb: 2.0, fat: 75.0, kcal: 680, bloodSugarImpact: 'کم', restrictions: { sodium: 'high' } },
+{ name: 'چیپس سیب زمینی', sodium: 5.0, potassium: 12.0, phosphorus: 1.5, calcium: 0.2, protein: 0.7, water: 2.0, carb: 53.0, fat: 34.0, kcal: 536, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high', potassium: 'high' } },
+{ name: 'پفک', sodium: 7.0, potassium: 2.0, phosphorus: 1.0, calcium: 0.1, protein: 0.6, water: 2.0, carb: 60.0, fat: 30.0, kcal: 500, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+{ name: 'بیسکویت', sodium: 3.0, potassium: 1.0, phosphorus: 0.5, calcium: 0.2, protein: 0.7, water: 3.0, carb: 70.0, fat: 15.0, kcal: 430, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+{ name: 'کیک', sodium: 3.5, potassium: 1.5, phosphorus: 1.0, calcium: 0.3, protein: 0.6, water: 20.0, carb: 50.0, fat: 20.0, kcal: 400, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+{ name: 'شکلات', sodium: 0.24, potassium: 3.7, phosphorus: 2.0, calcium: 0.5, protein: 0.6, water: 1.0, carb: 60.0, fat: 30.0, kcal: 500, bloodSugarImpact: 'زیاد', restrictions: {} },
+{ name: 'بستنی', sodium: 0.8, potassium: 2.0, phosphorus: 1.0, calcium: 1.3, protein: 0.4, water: 60.0, carb: 24.0, fat: 11.0, kcal: 200, bloodSugarImpact: 'زیاد', restrictions: { calcium: 'high' } },
+{ name: 'پنیر پیتزا', sodium: 6.0, potassium: 1.0, phosphorus: 4.0, calcium: 7.0, protein: 2.5, water: 40.0, carb: 2.0, fat: 25.0, kcal: 300, bloodSugarImpact: 'کم', restrictions: { sodium: 'high', calcium: 'high', phosphorus: 'high', protein: 'high' } },
+{ name: 'خورشت قورمه سبزی', sodium: 2.0, potassium: 4.0, phosphorus: 1.5, calcium: 0.5, protein: 1.8, water: 70.0, carb: 5.0, fat: 10.0, kcal: 150, bloodSugarImpact: 'کم', restrictions: { potassium: 'high', phosphorus: 'moderate' } },
+{ name: 'خورشت قیمه', sodium: 2.5, potassium: 3.5, phosphorus: 1.2, calcium: 0.4, protein: 1.5, water: 75.0, carb: 8.0, fat: 8.0, kcal: 140, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high' } },
+{ name: 'خورشت کرفس', sodium: 2.0, potassium: 3.0, phosphorus: 1.0, calcium: 0.5, protein: 1.2, water: 80.0, carb: 5.0, fat: 7.0, kcal: 120, bloodSugarImpact: 'کم', restrictions: { potassium: 'high' } },
+{ name: 'آش رشته', sodium: 3.0, potassium: 4.0, phosphorus: 1.5, calcium: 0.5, protein: 1.0, water: 80.0, carb: 15.0, fat: 5.0, kcal: 130, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', potassium: 'high' } },
+{ name: 'سوپ جو', sodium: 2.5, potassium: 2.5, phosphorus: 1.0, calcium: 0.3, protein: 0.8, water: 85.0, carb: 10.0, fat: 3.0, kcal: 100, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high' } },
+{ name: 'عدسی', sodium: 2.0, potassium: 4.0, phosphorus: 1.8, calcium: 0.2, protein: 0.9, water: 70.0, carb: 20.0, fat: 2.0, kcal: 120, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high', phosphorus: 'high' } },
+{ name: 'حلیم', sodium: 2.5, potassium: 2.0, phosphorus: 1.5, calcium: 0.3, protein: 1.0, water: 70.0, carb: 15.0, fat: 5.0, kcal: 150, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high' } },
+{ name: 'فلافل', sodium: 3.0, potassium: 5.0, phosphorus: 2.0, calcium: 0.5, protein: 1.3, water: 40.0, carb: 30.0, fat: 15.0, kcal: 300, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', potassium: 'high', phosphorus: 'high' } },
+{ name: 'سمبوسه', sodium: 3.5, potassium: 3.0, phosphorus: 1.5, calcium: 0.3, protein: 1.0, water: 50.0, carb: 30.0, fat: 15.0, kcal: 280, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high' } },
+{ name: 'پیتزا', sodium: 6.0, potassium: 2.0, phosphorus: 2.5, calcium: 2.0, protein: 1.5, water: 40.0, carb: 35.0, fat: 15.0, kcal: 300, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high', calcium: 'high', phosphorus: 'high' } },
+{ name: 'سیب زمینی سرخ کرده', sodium: 2.0, potassium: 5.0, phosphorus: 1.2, calcium: 0.1, protein: 0.4, water: 40.0, carb: 35.0, fat: 15.0, kcal: 300, bloodSugarImpact: 'زیاد', restrictions: { potassium: 'high' } },
+{ name: 'کشک', sodium: 5.0, potassium: 2.0, phosphorus: 2.5, calcium: 3.0, protein: 2.0, water: 20.0, carb: 5.0, fat: 5.0, kcal: 150, bloodSugarImpact: 'کم', restrictions: { sodium: 'high', calcium: 'high', phosphorus: 'high', protein: 'high' } },
+{ name: 'دوغ', sodium: 1.5, potassium: 1.5, phosphorus: 1.0, calcium: 1.2, protein: 0.3, water: 90.0, carb: 3.0, fat: 1.0, kcal: 30, bloodSugarImpact: 'کم', restrictions: { calcium: 'high' } },
+{ name: 'نوشابه', sodium: 0.4, potassium: 0.02, phosphorus: 0.1, calcium: 0.05, protein: 0, water: 90.0, carb: 10.0, fat: 0, kcal: 40, bloodSugarImpact: 'زیاد', restrictions: {} },
+{ name: 'آبمیوه صنعتی', sodium: 0.1, potassium: 1.5, phosphorus: 0.2, calcium: 0.1, protein: 0.1, water: 85.0, carb: 12.0, fat: 0.1, kcal: 50, bloodSugarImpact: 'زیاد', restrictions: {} },
+{ name: 'چای سبز', sodium: 0.01, potassium: 0.08, phosphorus: 0, calcium: 0, protein: 0, water: 99.9, carb: 0, fat: 0, kcal: 1, bloodSugarImpact: 'کم', restrictions: {} },
+{ name: 'دمنوش بابونه', sodium: 0.01, potassium: 0.09, phosphorus: 0, calcium: 0.02, protein: 0, water: 99.7, carb: 0, fat: 0, kcal: 1, bloodSugarImpact: 'کم', restrictions: {} },
+{ name: 'دمنوش نعناع', sodium: 0.05, potassium: 0.1, phosphorus: 0, calcium: 0.03, protein: 0, water: 99.8, carb: 0, fat: 0, kcal: 1, bloodSugarImpact: 'کم', restrictions: {} },
+{ name: 'کشک زرد', sodium: 4.0, potassium: 2.0, phosphorus: 2.0, calcium: 2.0, protein: 1.5, water: 30.0, carb: 10.0, fat: 5.0, kcal: 150, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', calcium: 'high', phosphorus: 'high', protein: 'high' } },
+{ name: 'رب گوجه فرنگی', sodium: 0.9, potassium: 9.0, phosphorus: 0.3, calcium: 0.2, protein: 0.13, water: 70.0, carb: 19.0, fat: 0.2, kcal: 82, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high' } },
+{ name: 'رب انار', sodium: 0.1, potassium: 5.0, phosphorus: 0.5, calcium: 0.2, protein: 0.1, water: 50.0, carb: 40.0, fat: 0.1, kcal: 160, bloodSugarImpact: 'زیاد', restrictions: { potassium: 'high' } },
+{ name: 'شیره انگور', sodium: 0.1, potassium: 6.0, phosphorus: 0.4, calcium: 0.3, protein: 0.1, water: 20.0, carb: 75.0, fat: 0.1, kcal: 300, bloodSugarImpact: 'زیاد', restrictions: { potassium: 'high' } },
+{ name: 'شیره خرما', sodium: 0.1, potassium: 6.5, phosphorus: 0.5, calcium: 0.4, protein: 0.2, water: 20.0, carb: 70.0, fat: 0.1, kcal: 280, bloodSugarImpact: 'زیاد', restrictions: { potassium: 'high' } },
+{ name: 'کشک بادمجان', sodium: 2.5, potassium: 3.0, phosphorus: 1.5, calcium: 0.5, protein: 1.0, water: 70.0, carb: 10.0, fat: 10.0, kcal: 150, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', potassium: 'high' } },
+{ name: 'بادمجان سرخ‌شده', sodium: 1.0, potassium: 2.5, phosphorus: 0.3, calcium: 0.1, protein: 0.1, water: 70.0, carb: 5.0, fat: 15.0, kcal: 150, bloodSugarImpact: 'متوسط', restrictions: {} },
+{ name: 'کدو سرخ‌شده', sodium: 1.0, potassium: 3.0, phosphorus: 0.4, calcium: 0.2, protein: 0.1, water: 80.0, carb: 5.0, fat: 15.0, kcal: 150, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high' } },
+{ name: 'قارچ سرخ‌شده', sodium: 1.0, potassium: 4.0, phosphorus: 1.0, calcium: 0.05, protein: 0.3, water: 80.0, carb: 5.0, fat: 15.0, kcal: 150, bloodSugarImpact: 'متوسط', restrictions: { potassium: 'high' } },
+{ name: 'کتلت', sodium: 2.0, potassium: 3.0, phosphorus: 1.5, calcium: 0.2, protein: 1.5, water: 60.0, carb: 10.0, fat: 15.0, kcal: 200, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', potassium: 'high', phosphorus: 'high' } },
+{ name: 'کوکو سبزی', sodium: 2.0, potassium: 4.0, phosphorus: 1.5, calcium: 0.5, protein: 1.0, water: 70.0, carb: 5.0, fat: 10.0, kcal: 150, bloodSugarImpact: 'کم', restrictions: { sodium: 'high', potassium: 'high', phosphorus: 'high' } },
+{ name: 'کوکو سیب زمینی', sodium: 2.0, potassium: 5.0, phosphorus: 1.5, calcium: 0.2, protein: 1.0, water: 70.0, carb: 15.0, fat: 10.0, kcal: 180, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', potassium: 'high', phosphorus: 'high' } },
+{ name: 'دلمه', sodium: 2.0, potassium: 3.0, phosphorus: 1.0, calcium: 0.3, protein: 0.8, water: 80.0, carb: 15.0, fat: 5.0, kcal: 120, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', potassium: 'high' } },
+{ name: 'زرشک پلو', sodium: 2.0, potassium: 2.0, phosphorus: 1.0, calcium: 0.2, protein: 1.0, water: 60.0, carb: 30.0, fat: 10.0, kcal: 200, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+{ name: 'لوبیا پلو', sodium: 2.0, potassium: 3.0, phosphorus: 1.5, calcium: 0.3, protein: 1.0, water: 60.0, carb: 30.0, fat: 10.0, kcal: 200, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high', potassium: 'high', phosphorus: 'high' } },
+{ name: 'عدس پلو', sodium: 2.0, potassium: 3.5, phosphorus: 1.5, calcium: 0.2, protein: 1.0, water: 60.0, carb: 30.0, fat: 10.0, kcal: 200, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high', potassium: 'high', phosphorus: 'high' } },
+{ name: 'ماکارونی', sodium: 2.0, potassium: 1.0, phosphorus: 1.0, calcium: 0.1, protein: 0.8, water: 60.0, carb: 30.0, fat: 5.0, kcal: 180, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high' } },
+{ name: 'لازانیا', sodium: 3.0, potassium: 2.0, phosphorus: 2.0, calcium: 2.0, protein: 1.5, water: 50.0, carb: 25.0, fat: 15.0, kcal: 250, bloodSugarImpact: 'زیاد', restrictions: { sodium: 'high', calcium: 'high', phosphorus: 'high', protein: 'high' } },
+{ name: 'سالاد الویه', sodium: 3.0, potassium: 3.0, phosphorus: 1.5, calcium: 0.2, protein: 1.0, water: 60.0, carb: 15.0, fat: 15.0, kcal: 200, bloodSugarImpact: 'متوسط', restrictions: { sodium: 'high', potassium: 'high', phosphorus: 'high' } },
+{ name: 'سالاد فصل', sodium: 0.5, potassium: 2.0, phosphorus: 0.3, calcium: 0.2, protein: 0.1, water: 90.0, carb: 5.0, fat: 0.1, kcal: 20, bloodSugarImpact: 'کم', restrictions: {} },
+{ name: 'سالاد شیرازی', sodium: 0.5, potassium: 2.0, phosphorus: 0.3, calcium: 0.2, protein: 0.1, water: 90.0, carb: 5.0, fat: 0.1, kcal: 20, bloodSugarImpact: 'کم', restrictions: {} }
+],
+      limits: userData.limits || {
+        sodium: 23,
+        potassium: 25,
+        phosphorus: 9,
+        calcium: 10,
+        protein: 8,
+        water: 10
+      },
+      ibw: userData.ibw || null,
+      urineOutput: userData.urineOutput || null,
+      minimumUrineOutput: userData.minimumUrineOutput || 500,
+      backgroundColor: userData.backgroundColor || '#FFF5E1',
+      textColor: userData.textColor || '#222',
+      fontSize: userData.fontSize || 'large'
+    };
+
+    let intakeHistory = userData.intakeHistory;
+    let foodDB = userData.foodDB;
+    let limits = userData.limits;
+    let charts = {};
+
+    applySettings();
+
+    function applySettings() {
+      document.body.style.backgroundColor = userData.backgroundColor;
+      document.body.style.color = userData.textColor;
+      applyFontSize(userData.fontSize);
+    }
+
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    function applyFontSize(size) {
+      let fontSize;
+      switch (size) {
+        case 'small':
+          fontSize = '0.9rem';
+          break;
+        case 'medium':
+          fontSize = '1rem';
+          break;
+        case 'large':
+          fontSize = '1.1rem';
+          break;
+        default:
+          fontSize = '1.1rem';
+      }
+      document.body.style.fontSize = fontSize;
+      userData.fontSize = size;
+      saveData();
+    }
+
+    function saveData() {
+      try {
+        userData.intakeHistory = intakeHistory;
+        userData.foodDB = foodDB;
+        userData.limits = limits;
+        userData.ibw = parseFloat(document.getElementById('ibw').value) || null;
+        userData.urineOutput = parseFloat(document.getElementById('urineOutput').value) || null;
+        userData.minimumUrineOutput = parseFloat(document.getElementById('minimumUrineOutput').value) || 500;
+        userData.backgroundColor = document.getElementById('backgroundColor').value || '#FFF5E1';
+        userData.textColor = document.getElementById('textColor').value || '#222';
+        userData.fontSize = document.getElementById('fontSize').value || 'large';
+        localStorage.setItem(storageKey, JSON.stringify(userData));
+      } catch (e) {
+        showError('خطا در ذخیره‌سازی داده‌ها. لطفاً دوباره تلاش کنید.');
+        console.error('Error saving data to localStorage:', e);
+      }
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('expanded');
+    }
+
+    function openTab(event, tabName) {
+      const tabContents = document.getElementsByClassName('tab-content');
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+      }
+      const tabButtons = document.getElementsByClassName('tab-button');
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove('active');
+      }
+      document.getElementById(tabName).classList.add('active');
+      event.currentTarget.classList.add('active');
+      toggleSidebar();
+    }
+
+    function setupAccordion() {
+      const buttons = document.getElementsByClassName('accordion-button');
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', function() {
+          const content = this.nextElementSibling;
+          content.classList.toggle('active');
+        });
+      }
+    }
+
+    function populateFoodSelect() {
+      const foodSelect = document.getElementById('foodSelect');
+      foodSelect.innerHTML = '<option value="">یک غذا انتخاب کنید</option>';
+      foodDB.forEach((food, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = food.name;
+        foodSelect.appendChild(option);
+      });
+    }
+
+    function addIntake(event) {
+      event.preventDefault();
+
+      const foodSelect = document.getElementById('foodSelect');
+      const quantityInput = document.getElementById('quantity');
+      const mealTypeSelect = document.getElementById('mealType');
+
+      const foodIndex = parseInt(foodSelect.value);
+      const quantity = parseFloat(quantityInput.value);
+      const mealType = mealTypeSelect.value;
+
+      if (isNaN(foodIndex) || foodIndex < 0 || foodIndex >= foodDB.length) {
+        showError('لطفاً یک غذا انتخاب کنید.');
+        return;
+      }
+      if (isNaN(quantity)) {
+        showError('لطفاً مقدار معتبری وارد کنید.');
+        return;
+      }
+      if (!mealType) {
+        showError('لطفاً یک وعده غذایی انتخاب کنید.');
+        return;
+      }
+
+      const food = foodDB[foodIndex];
+      let date;
+      try {
+        const persianDate = new persianDate();
+        date = persianDate.format('dddd D MMMM YYYY');
+      } catch (e) {
+        console.error('Error with persianDate:', e);
+        date = new Date().toLocaleDateString('fa-IR');
+      }
+
+      const timestamp = new Date().getTime();
+
+      const intake = {
+        type: 'food',
+        date: date,
+        timestamp: timestamp,
+        mealType: mealType,
+        food: food.name,
+        quantity: quantity,
+        sodium: Math.round((food.sodium || 0) * quantity),
+        potassium: Math.round((food.potassium || 0) * quantity),
+        phosphorus: Math.round((food.phosphorus || 0) * quantity),
+        calcium: Math.round((food.calcium || 0) * quantity),
+        protein: Math.round((food.protein || 0) * quantity),
+        water: Math.round((food.water || 0) * quantity),
+        urine: 0,
+        kcal: Math.round((food.kcal || 0) * quantity)
+      };
+
+      intakeHistory.push(intake);
+      saveData();
+      displayIntakeHistory();
+      updateDashboard();
+
+      foodSelect.selectedIndex = 0;
+      quantityInput.value = '';
+      mealTypeSelect.selectedIndex = 0;
+    }
+
+    function addWaterIntake(event) {
+      event.preventDefault();
+
+      const waterCupsInput = document.getElementById('waterCups');
+      const cups = parseFloat(waterCupsInput.value);
+
+      if (isNaN(cups)) {
+        showError('لطفاً تعداد لیوان‌ها را به صورت معتبر وارد کنید.');
+        return;
+      }
+
+      const waterAmount = Math.round(cups * 200 / 100);
+
+      let date;
+      try {
+        const persianDate = new persianDate();
+        date = persianDate.format('dddd D MMMM YYYY');
+      } catch (e) {
+        console.error('Error with persianDate:', e);
+        date = new Date().toLocaleDateString('fa-IR');
+      }
+
+      const timestamp = new Date().getTime();
+
+      const intake = {
+        type: 'water',
+        date: date,
+        timestamp: timestamp,
+        mealType: '-',
+        food: `آب (${cups} لیوان)`,
+        quantity: cups,
+        sodium: 0,
+        potassium: 0,
+        phosphorus: 0,
+        calcium: 0,
+        protein: 0,
+        water: waterAmount,
+        urine: 0,
+        kcal: 0
+      };
+
+      intakeHistory.push(intake);
+      saveData();
+      displayIntakeHistory();
+      updateDashboard();
+
+      waterCupsInput.value = '';
+    }
+
+    function addUrineOutput(event) {
+      event.preventDefault();
+
+      const urineAmountInput = document.getElementById('urineAmount');
+      const urineAmount = parseFloat(urineAmountInput.value);
+
+      if (isNaN(urineAmount)) {
+        showError('لطفاً مقدار معتبری برای ادرار وارد کنید.');
+        return;
+      }
+
+      let date;
+      try {
+        const persianDate = new persianDate();
+        date = persianDate.format('dddd D MMMM YYYY');
+      } catch (e) {
+        console.error('Error with persianDate:', e);
+        date = new Date().toLocaleDateString('fa-IR');
+      }
+
+      const timestamp = new Date().getTime();
+
+      const intake = {
+        type: 'urine',
+        date: date,
+        timestamp: timestamp,
+        mealType: '-',
+        food: 'ادرار',
+        quantity: Math.round(urineAmount),
+        sodium: 0,
+        potassium: 0,
+        phosphorus: 0,
+        calcium: 0,
+        protein: 0,
+        water: 0,
+        urine: Math.round(urineAmount),
+        kcal: 0
+      };
+
+      intakeHistory.push(intake);
+      saveData();
+      displayIntakeHistory();
+      updateDashboard();
+
+      urineAmountInput.value = '';
+    }
+
+    function calculateDailyUrineOutput() {
+      const now = new Date().getTime();
+      const oneDayInMs = 24 * 60 * 60 * 1000;
+      const recentUrine = intakeHistory.filter(item => {
+        return item.type === 'urine' && (now - item.timestamp) <= oneDayInMs;
+      });
+      return Math.round(recentUrine.reduce((sum, item) => sum + (item.urine || 0), 0));
+    }
+
+    function displayIntakeHistory() {
+      const intakeTableBody = document.getElementById('intakeTableBody');
+      intakeTableBody.innerHTML = '';
+      intakeHistory.forEach((intake, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${intake.date || '-'}</td>
+          <td>${intake.type === 'food' ? intake.mealType : (intake.type === 'water' ? 'آب' : 'ادرار')}</td>
+          <td>${intake.food || '-'}</td>
+          <td>${intake.type === 'food' ? (intake.quantity || 0) + ' واحد' : (intake.type === 'water' ? intake.quantity + ' لیوان' : intake.quantity + ' میلی‌لیتر')}</td>
+          <td>${intake.sodium || 0} | ${(intake.sodium || 0) * 100}</td>
+          <td>${intake.potassium || 0} | ${(intake.potassium || 0) * 100}</td>
+          <td>${intake.phosphorus || 0} | ${(intake.phosphorus || 0) * 100}</td>
+          <td>${intake.calcium || 0} | ${(intake.calcium || 0) * 100}</td>
+          <td>${intake.protein || 0} | ${(intake.protein || 0) * 10000}</td>
+          <td>${intake.water || 0} | ${(intake.water || 0) * 100}</td>
+          <td>${intake.urine || 0}</td>
+          <td>${intake.kcal || 0}</td>
+          <td>
+            <button class="delete-button" onclick="deleteIntake(${index})">حذف</button>
+          </td>
+        `;
+        intakeTableBody.appendChild(row);
+      });
+    }
+
+    function deleteIntake(index) {
+      intakeHistory.splice(index, 1);
+      saveData();
+      displayIntakeHistory();
+      updateDashboard();
+    }
+
+    function deleteAllIntakes() {
+      if (confirm('آیا مطمئن هستید که می‌خواهید همه اطلاعات ثبت‌شده را حذف کنید؟')) {
+        intakeHistory = [];
+        saveData();
+        displayIntakeHistory();
+        updateDashboard();
+      }
+    }
+
+    function filterFoodDatabase() {
+      const filter = document.getElementById('filterSelect').value;
+      let filteredFoods = foodDB;
+      if (filter === 'lowPotassium') {
+        filteredFoods = foodDB.filter(food => food.restrictions && (food.restrictions.potassium === 'low' || !food.restrictions.potassium));
+      } else if (filter === 'lowPhosphorus') {
+        filteredFoods = foodDB.filter(food => food.restrictions && (food.restrictions.phosphorus === 'low' || !food.restrictions.phosphorus));
+      } else if (filter === 'lowCalcium') {
+        filteredFoods = foodDB.filter(food => food.restrictions && (food.restrictions.calcium === 'low' || !food.restrictions.calcium));
+      } else if (filter === 'lowSodium') {
+        filteredFoods = foodDB.filter(food => food.restrictions && (food.restrictions.sodium === 'low' || !food.restrictions.sodium));
+      }
+      displayFoodDatabase(filteredFoods);
+    }
+
+    function displayFoodDatabase(foods = foodDB) {
+      const foodTableBody = document.getElementById('foodTableBody');
+      foodTableBody.innerHTML = '';
+      foods.forEach((food, index) => {
+        const row = document.createElement('tr');
+        let warnings = [];
+        if (food.restrictions) {
+          if (food.restrictions.sodium === 'high') warnings.push('سدیم بالا');
+          if (food.restrictions.potassium === 'high') warnings.push('پتاسیم بالا');
+          if (food.restrictions.phosphorus === 'high') warnings.push('فسفر بالا');
+          if (food.restrictions.calcium === 'high') warnings.push('کلسیم بالا');
+          if (food.restrictions.bloodSugar === 'high') warnings.push('قند خون بالا');
+        }
+        const warningText = warnings.length > 0 ? `⚠️ ${warnings.join('، ')}` : '';
+        row.innerHTML = `
+          <td>${food.name}</td>
+          <td>${Math.round(food.sodium || 0)} | ${Math.round((food.sodium || 0) * 100)}</td>
+          <td>${Math.round(food.potassium || 0)} | ${Math.round((food.potassium || 0) * 100)}</td>
+          <td>${Math.round(food.phosphorus || 0)} | ${Math.round((food.phosphorus || 0) * 100)}</td>
+          <td>${Math.round(food.calcium || 0)} | ${Math.round((food.calcium || 0) * 100)}</td>
+          <td>${Math.round(food.protein || 0)} | ${Math.round((food.protein || 0) * 10000)}</td>
+          <td>${Math.round(food.water || 0)} | ${Math.round((food.water || 0) * 100)}</td>
+          <td>${Math.round(food.kcal || 0)}</td>
+          <td>${Math.round(food.carb || 0)}</td>
+          <td>${Math.round(food.fat || 0)}</td>
+          <td>${food.bloodSugarImpact || 'نامشخص'}</td>
+          <td>${warningText}</td>
+          <td>
+            <button class="edit-button" onclick="editFood(${index})">ویرایش</button>
+            <button class="delete-button" onclick="deleteFood(${index})">حذف</button>
+          </td>
+        `;
+        if (warnings.length > 0) {
+          row.style.backgroundColor = '#ffe6e6';
+        }
+        foodTableBody.appendChild(row);
+      });
+    }
+
+    function showAddFoodForm() {
+      const form = document.getElementById('addFoodForm');
+      form.style.display = 'block';
+      document.getElementById('foodIndex').value = '';
+      document.getElementById('foodName').value = '';
+      document.getElementById('foodSodium').value = '';
+      document.getElementById('foodPotassium').value = '';
+      document.getElementById('foodPhosphorus').value = '';
+      document.getElementById('foodCalcium').value = '';
+      document.getElementById('foodProtein').value = '';
+      document.getElementById('foodWater').value = '';
+      document.getElementById('foodKcal').value = '';
+      document.getElementById('foodCarb').value = '';
+      document.getElementById('foodFat').value = '';
+    }
+
+    function editFood(index) {
+      const food = foodDB[index];
+      document.getElementById('addFoodForm').style.display = 'block';
+      document.getElementById('foodIndex').value = index;
+      document.getElementById('foodName').value = food.name;
+      document.getElementById('foodSodium').value = food.sodium;
+      document.getElementById('foodPotassium').value = food.potassium;
+      document.getElementById('foodPhosphorus').value = food.phosphorus;
+      document.getElementById('foodCalcium').value = food.calcium;
+      document.getElementById('foodProtein').value = food.protein;
+      document.getElementById('foodWater').value = food.water;
+      document.getElementById('foodKcal').value = food.kcal;
+      document.getElementById('foodCarb').value = food.carb;
+      document.getElementById('foodFat').value = food.fat;
+    }
+
+    function addFood(event) {
+      event.preventDefault();
+      const index = document.getElementById('foodIndex').value;
+      const sodium = parseFloat(document.getElementById('foodSodium').value);
+      const potassium = parseFloat(document.getElementById('foodPotassium').value);
+      const phosphorus = parseFloat(document.getElementById('foodPhosphorus').value);
+      const calcium = parseFloat(document.getElementById('foodCalcium').value);
+      const protein = parseFloat(document.getElementById('foodProtein').value);
+      const water = parseFloat(document.getElementById('foodWater').value);
+      const kcal = parseFloat(document.getElementById('foodKcal').value);
+      const carb = parseFloat(document.getElementById('foodCarb').value);
+      const fat = parseFloat(document.getElementById('foodFat').value);
+
+      if (isNaN(sodium) || isNaN(potassium) || isNaN(phosphorus) || isNaN(calcium) || isNaN(protein) || isNaN(water) || isNaN(kcal) || isNaN(carb) || isNaN(fat)) {
+        showError('لطفاً تمام مقادیر را به صورت معتبر وارد کنید.');
+        return;
+      }
+
+      const newFood = {
+        name: document.getElementById('foodName').value,
+        sodium: sodium,
+        potassium: potassium,
+        phosphorus: phosphorus,
+        calcium: calcium,
+        protein: protein,
+        water: water,
+        kcal: kcal,
+        carb: carb,
+        fat: fat,
+        bloodSugarImpact: 'نامشخص',
+        restrictions: {}
+      };
+      if (index === '') {
+        foodDB.push(newFood);
+      } else {
+        foodDB[index] = newFood;
+      }
+      saveData();
+      displayFoodDatabase();
+      populateFoodSelect();
+      document.getElementById('addFoodForm').style.display = 'none';
+      document.getElementById('addFoodForm').reset();
+    }
+
+    function deleteFood(index) {
+      foodDB.splice(index, 1);
+      saveData();
+      displayFoodDatabase();
+      populateFoodSelect();
+    }
+
+    function updateLimitDisplays() {
+      const sodiumLimit = parseFloat(document.getElementById('sodiumLimit').value) || 0;
+      const potassiumLimit = parseFloat(document.getElementById('potassiumLimit').value) || 0;
+      const phosphorusLimit = parseFloat(document.getElementById('phosphorusLimit').value) || 0;
+      const calciumLimit = parseFloat(document.getElementById('calciumLimit').value) || 0;
+      const proteinLimit = parseFloat(document.getElementById('proteinLimit').value) || 0;
+      const waterLimit = parseFloat(document.getElementById('waterLimit').value) || 0;
+
+      document.getElementById('sodiumLimitMg').textContent = sodiumLimit * 100;
+      document.getElementById('potassiumLimitMg').textContent = potassiumLimit * 100;
+      document.getElementById('phosphorusLimitMg').textContent = phosphorusLimit * 100;
+      document.getElementById('calciumLimitMg').textContent = calciumLimit * 100;
+      document.getElementById('proteinLimitMg').textContent = proteinLimit * 10000;
+      document.getElementById('waterLimitMl').textContent = waterLimit * 100;
+    }
+
+    function saveSettings(event) {
+      event.preventDefault();
+      const ibw = parseFloat(document.getElementById('ibw').value) || 0;
+      const dailyUrineOutput = calculateDailyUrineOutput();
+
+      if (ibw > 0) {
+        limits.protein = Math.round((ibw * 1.2) / 10);
+        limits.sodium = Math.round((2300 * ibw / 70) / 100);
+        limits.potassium = Math.round((2500 * ibw / 70) / 100);
+        limits.phosphorus = Math.round((900 * ibw / 70) / 100);
+        limits.calcium = Math.round((1000 * ibw / 70) / 100);
+        limits.water = Math.round((1000 + dailyUrineOutput + (ibw * 50)) / 100);
+      } else {
+        const sodiumLimit = parseFloat(document.getElementById('sodiumLimit').value);
+        const potassiumLimit = parseFloat(document.getElementById('potassiumLimit').value);
+        const phosphorusLimit = parseFloat(document.getElementById('phosphorusLimit').value);
+        const calciumLimit = parseFloat(document.getElementById('calciumLimit').value);
+        const proteinLimit = parseFloat(document.getElementById('proteinLimit').value);
+        const waterLimit = parseFloat(document.getElementById('waterLimit').value);
+
+        if (isNaN(sodiumLimit) || isNaN(potassiumLimit) || isNaN(phosphorusLimit) || isNaN(calciumLimit) || isNaN(proteinLimit) || isNaN(waterLimit)) {
+          showError('لطفاً تمام مقادیر حد مجاز را به صورت معتبر وارد کنید.');
+          return;
+        }
+
+        limits = {
+          sodium: Math.round(sodiumLimit),
+          potassium: Math.round(potassiumLimit),
+          phosphorus: Math.round(phosphorusLimit),
+          calcium: Math.round(calciumLimit),
+          protein: Math.round(proteinLimit),
+          water: Math.round(waterLimit)
+        };
+      }
+
+      userData.backgroundColor = document.getElementById('backgroundColor').value;
+      userData.textColor = document.getElementById('textColor').value;
+      applySettings();
+
+      saveData();
+      displayLimits();
+      updateDashboard();
+    }
+
+    function displayLimits() {
+      document.getElementById('sodiumLimit').value = limits.sodium;
+      document.getElementById('potassiumLimit').value = limits.potassium;
+      document.getElementById('phosphorusLimit').value = limits.phosphorus;
+      document.getElementById('calciumLimit').value = limits.calcium;
+      document.getElementById('proteinLimit').value = limits.protein;
+      document.getElementById('waterLimit').value = limits.water;
+      document.getElementById('ibw').value = userData.ibw || '';
+      document.getElementById('urineOutput').value = userData.urineOutput || '';
+      document.getElementById('minimumUrineOutput').value = userData.minimumUrineOutput || 500;
+      document.getElementById('backgroundColor').value = userData.backgroundColor || '#FFF5E1';
+      document.getElementById('textColor').value = userData.textColor || '#222';
+      document.getElementById('fontSize').value = userData.fontSize || 'large';
+      document.getElementById('sodiumLimitDisplay').textContent = limits.sodium || 0;
+      document.getElementById('potassiumLimitDisplay').textContent = limits.potassium || 0;
+      document.getElementById('phosphorusLimitDisplay').textContent = limits.phosphorus || 0;
+      document.getElementById('calciumLimitDisplay').textContent = limits.calcium || 0;
+      document.getElementById('proteinLimitDisplay').textContent = limits.protein || 0;
+      document.getElementById('waterLimitDisplay').textContent = limits.water || 0;
+      updateLimitDisplays();
+    }
+
+    function updateDashboard() {
+      const totals = intakeHistory.reduce((acc, intake) => {
+        acc.sodium += parseFloat(intake.sodium) || 0;
+        acc.potassium += parseFloat(intake.potassium) || 0;
+        acc.phosphorus += parseFloat(intake.phosphorus) || 0;
+        acc.calcium += parseFloat(intake.calcium) || 0;
+        acc.protein += parseFloat(intake.protein) || 0;
+        acc.water += parseFloat(intake.water) || 0;
+        acc.kcal += parseFloat(intake.kcal) || 0;
+        return acc;
+      }, { sodium: 0, potassium: 0, phosphorus: 0, calcium: 0, protein: 0, water: 0, kcal: 0 });
+
+      totals.sodium = Math.round(totals.sodium);
+      totals.potassium = Math.round(totals.potassium);
+      totals.phosphorus = Math.round(totals.phosphorus);
+      totals.calcium = Math.round(totals.calcium);
+      totals.protein = Math.round(totals.protein);
+      totals.water = Math.round(totals.water);
+      totals.kcal = Math.round(totals.kcal);
+
+      const sodiumMg = totals.sodium * 100;
+      const potassiumMg = totals.potassium * 100;
+      const phosphorusMg = totals.phosphorus * 100;
+      const calciumMg = totals.calcium * 100;
+      const proteinMg = totals.protein * 10000;
+      const waterMl = totals.water * 100;
+
+      const dailyUrine = calculateDailyUrineOutput();
+
+      document.getElementById('totalSodium').textContent = totals.sodium;
+      document.getElementById('totalPotassium').textContent = totals.potassium;
+      document.getElementById('totalPhosphorus').textContent = totals.phosphorus;
+      document.getElementById('totalCalcium').textContent = totals.calcium;
+      document.getElementById('totalProtein').textContent = totals.protein;
+      document.getElementById('totalWater').textContent = totals.water;
+      document.getElementById('totalKcal').textContent = totals.kcal;
+      document.getElementById('dailyUrineOutput').textContent = dailyUrine;
+
+      document.getElementById('totalSodiumMg').textContent = sodiumMg;
+      document.getElementById('totalPotassiumMg').textContent = potassiumMg;
+      document.getElementById('totalPhosphorusMg').textContent = phosphorusMg;
+      document.getElementById('totalCalciumMg').textContent = calciumMg;
+      document.getElementById('totalProteinMg').textContent = proteinMg;
+      document.getElementById('totalWaterMl').textContent = waterMl;
+
+      document.getElementById('sodiumSticker').textContent = totals.sodium > limits.sodium ? '😡' : '😊';
+      document.getElementById('potassiumSticker').textContent = totals.potassium > limits.potassium ? '😡' : '😊';
+      document.getElementById('phosphorusSticker').textContent = totals.phosphorus > limits.phosphorus ? '😡' : '😊';
+      document.getElementById('calciumSticker').textContent = totals.calcium > limits.calcium ? '😡' : '😊';
+      document.getElementById('proteinSticker').textContent = totals.protein > limits.protein ? '😡' : '😊';
+      document.getElementById('waterSticker').textContent = totals.water > limits.water ? '😡' : '😊';
+
+      const warningsDiv = document.getElementById('warnings');
+      warningsDiv.innerHTML = '';
+      if (totals.sodium > limits.sodium) warningsDiv.innerHTML += '<div class="warning">مصرف سدیم بیش از حد مجاز است!</div>';
+      if (totals.potassium > limits.potassium) warningsDiv.innerHTML += '<div class="warning">مصرف پتاسیم بیش از حد مجاز است!</div>';
+      if (totals.phosphorus > limits.phosphorus) warningsDiv.innerHTML += '<div class="warning">مصرف فسفر بیش از حد مجاز است!</div>';
+      if (totals.calcium > limits.calcium) warningsDiv.innerHTML += '<div class="warning">مصرف کلسیم بیش از حد مجاز است!</div>';
+      if (totals.protein > limits.protein) warningsDiv.innerHTML += '<div class="warning">مصرف پروتئین بیش از حد مجاز است!</div>';
+      if (totals.water > limits.water) warningsDiv.innerHTML += '<div class="warning">مصرف آب بیش از حد مجاز است!</div>';
+      if (dailyUrine < userData.minimumUrineOutput) warningsDiv.innerHTML += `<div class="warning">مقدار ادرار ۲۴ ساعته (${dailyUrine} میلی‌لیتر) کمتر از حد مجاز (${userData.minimumUrineOutput} میلی‌لیتر) است!</div>`;
+
+      const nutrients = [
+        { id: 'sodiumChart', label: 'سدیم', value: totals.sodium, limit: limits.sodium, color: 'rgba(255, 99, 132, 0.7)' },
+        { id: 'potassiumChart', label: 'پتاسیم', value: totals.potassium, limit: limits.potassium, color: 'rgba(54, 162, 235, 0.7)' },
+        { id: 'phosphorusChart', label: 'فسفر', value: totals.phosphorus, limit: limits.phosphorus, color: 'rgba(255, 206, 86, 0.7)' },
+        { id: 'calciumChart', label: 'کلسیم', value: totals.calcium, limit: limits.calcium, color: 'rgba(255, 159, 64, 0.7)' },
+        { id: 'proteinChart', label: 'پروتئین', value: totals.protein, limit: limits.protein, color: 'rgba(75, 192, 192, 0.7)' },
+        { id: 'waterChart', label: 'آب', value: totals.water, limit: limits.water, color: 'rgba(153, 102, 255, 0.7)' }
+      ];
+
+      nutrients.forEach(nutrient => {
+        if (charts[nutrient.id]) {
+          charts[nutrient.id].destroy();
+        }
+        const ctx = document.getElementById(nutrient.id).getContext('2d');
+        const remaining = Math.max(0, nutrient.limit - nutrient.value);
+        charts[nutrient.id] = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['مصرف‌شده', 'باقی‌مانده'],
+            datasets: [{
+              data: [nutrient.value, remaining],
+              backgroundColor: [nutrient.color, 'rgba(200, 200, 200, 0.3)'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top', labels: { font: { size: 10 } } },
+              title: { display: true, text: nutrient.label, font: { size: 12 } }
+            }
+          }
+        });
+      });
+    }
+
+    function sendSMS() {
+      const phoneNumber = "+989226942390";
+      const message = encodeURIComponent("اپلیکیشن مدیریت تغذیه بیماران دیالیزی\n");
+      const smsLink = `sms:${phoneNumber}?body=${message}`;
+      
+      try {
+        window.location.href = smsLink;
+      } catch (e) {
+        showError('خطا در باز کردن اپلیکیشن پیامک. لطفاً شماره را بررسی کنید یا از اپلیکیشن پیامک خود استفاده کنید.');
+        console.error('Error opening SMS app:', e);
+      }
+    }
+
+    document.getElementById('dashboard').classList.add('active');
+    setupAccordion();
+    populateFoodSelect();
+    displayIntakeHistory();
+    displayFoodDatabase();
+    displayLimits();
+    updateDashboard();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('Service Worker Registered'))
+        .catch(err => console.log('Service Worker Not Registered', err));
+    }
+  </script> 
+ </body>
+</html>

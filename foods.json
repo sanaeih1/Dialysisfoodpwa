@@ -1,0 +1,2393 @@
+[
+  {
+    "name": "مرغ",
+    "category": "گوشت و فرآورده‌های گوشتی",
+    "sodium": 700,
+    "potassium": 2800,
+    "phosphorus": 2000,
+    "calcium": 100,
+    "protein": 2500,
+    "water": 65,
+    "carb": 0,
+    "fat": 0,
+    "kcal": 165,
+    "bloodSugarImpact": "نامشخص",
+    "restrictions": {
+      "phosphorus": "high",
+      "potassium": "moderate",
+      "protein": "high"
+    },
+    "unit": "یک تکه سینه مرغ (اندازه یک کف دست)"
+  },
+  {
+    "name": "سیب",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 1070,
+    "phosphorus": 110,
+    "calcium": 60,
+    "protein": 26,
+    "water": 85560,
+    "carb": 14360,
+    "fat": 170,
+    "kcal": 52,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "پرتقال",
+    "category": "میوه‌ها",
+    "sodium": 0,
+    "potassium": 1810,
+    "phosphorus": 140,
+    "calcium": 400,
+    "protein": 94,
+    "water": 86750,
+    "carb": 11750,
+    "fat": 120,
+    "kcal": 47,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "گریپ فروت",
+    "category": "میوه‌ها",
+    "sodium": 0,
+    "potassium": 1350,
+    "phosphorus": 180,
+    "calcium": 220,
+    "protein": 77,
+    "water": 88060,
+    "carb": 10660,
+    "fat": 140,
+    "kcal": 42,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک عدد متوسط"  },
+  {
+    "name": "نارنگی",
+    "category": "میوه‌ها",
+    "sodium": 20,
+    "potassium": 1660,
+    "phosphorus": 200,
+    "calcium": 370,
+    "protein": 81,
+    "water": 85170,
+    "carb": 13340,
+    "fat": 310,
+    "kcal": 53,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "دو عدد متوسط"
+  },
+  {
+    "name": "موز",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 3580,
+    "phosphorus": 220,
+    "calcium": 50,
+    "protein": 109,
+    "water": 74910,
+    "carb": 22840,
+    "fat": 330,
+    "kcal": 89,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "high"
+    },
+    "unit": "نصف موز متوسط"
+  },
+  {
+    "name": "زردآلو",
+    "category": "میوه‌ها",    "sodium": 10,
+    "potassium": 2590,
+    "phosphorus": 230,
+    "calcium": 130,
+    "protein": 140,
+    "water": 86350,
+    "carb": 11120,
+    "fat": 390,
+    "kcal": 48,    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "سه عدد"
+  },
+  {
+    "name": "هلو",
+    "category": "میوه‌ها",
+    "sodium": 0,
+    "potassium": 1900,
+    "phosphorus": 200,
+    "calcium": 60,
+    "protein": 91,
+    "water": 88870,
+    "carb": 9540,
+    "fat": 250,
+    "kcal": 39,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "شلیل",
+    "category": "میوه‌ها",
+    "sodium": 0,
+    "potassium": 1900,
+    "phosphorus": 200,
+    "calcium": 60,
+    "protein": 110,
+    "water": 87000,
+    "carb": 10550,
+    "fat": 320,
+    "kcal": 44,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "آلو",
+    "category": "میوه‌ها",
+    "sodium": 0,
+    "potassium": 1570,
+    "phosphorus": 160,
+    "calcium": 60,
+    "protein": 70,
+    "water": 87230,
+    "carb": 11420,
+    "fat": 280,
+    "kcal": 46,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "دو عدد متوسط"
+  },
+  {
+    "name": "کیوی",
+    "category": "میوه‌ها",
+    "sodium": 30,
+    "potassium": 3120,
+    "phosphorus": 340,
+    "calcium": 340,
+    "protein": 113,
+    "water": 83000,
+    "carb": 14660,
+    "fat": 520,
+    "kcal": 61,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "توت فرنگی",
+    "category": "میوه‌ها",    "sodium": 10,
+    "potassium": 1530,
+    "phosphorus": 240,
+    "calcium": 160,
+    "protein": 67,
+    "water": 90950,
+    "carb": 7680,
+    "fat": 300,
+    "kcal": 32,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "گیلاس و آلبالو",
+    "category": "میوه‌ها",
+    "sodium": 30,
+    "potassium": 1500,
+    "phosphorus": 150,
+    "calcium": 130,
+    "protein": 100,
+    "water": 82250,
+    "carb": 16010,
+    "fat": 200,
+    "kcal": 63,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "انگور",
+    "category": "میوه‌ها",
+    "sodium": 20,
+    "potassium": 1910,
+    "phosphorus": 100,
+    "calcium": 100,
+    "protein": 63,
+    "water": 81000,
+    "carb": 18100,
+    "fat": 160,
+    "kcal": 69,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "توت",
+    "category": "میوه‌ها",
+    "sodium": 100,
+    "potassium": 1940,
+    "phosphorus": 380,
+    "calcium": 290,
+    "protein": 144,
+    "water": 85000,
+    "carb": 14490,
+    "fat": 490,
+    "kcal": 61,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "سیاه توت",    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 1620,
+    "phosphorus": 220,
+    "calcium": 390,
+    "protein": 139,
+    "water": 88000,
+    "carb": 9610,
+    "fat": 390,
+    "kcal": 43,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "بلوبری",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 770,
+    "phosphorus": 120,
+    "calcium": 60,
+    "protein": 74,
+    "water": 84210,
+    "carb": 14490,
+    "fat": 330,
+    "kcal": 57,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "نصف فنجان"
+  },
+  {
+    "name": "خرمالو",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 1610,
+    "phosphorus": 170,
+    "calcium": 80,
+    "protein": 58,
+    "water": 80000,
+    "carb": 18590,
+    "fat": 190,
+    "kcal": 70,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "انجیر",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 2320,
+    "phosphorus": 140,
+    "calcium": 350,
+    "protein": 75,
+    "water": 79110,
+    "carb": 19180,
+    "fat": 300,
+    "kcal": 74,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "دو عدد متوسط"
+  },
+  {
+    "name": "به",
+    "category": "میوه‌ها",
+    "sodium": 40,
+    "potassium": 1970,
+    "phosphorus": 170,
+    "calcium": 110,
+    "protein": 40,
+    "water": 83800,
+    "carb": 15300,
+    "fat": 100,
+    "kcal": 57,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "نصف به متوسط"
+  },
+  {
+    "name": "آلبالو",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 1680,
+    "phosphorus": 140,
+    "calcium": 110,
+    "protein": 82,
+    "water": 83460,
+    "carb": 14980,
+    "fat": 380,
+    "kcal": 60,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "گلابی",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 1160,
+    "phosphorus": 120,
+    "calcium": 90,
+    "protein": 36,
+    "water": 83960,
+    "carb": 15230,
+    "fat": 140,
+    "kcal": 57,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک گلابی متوسط"
+  },
+  {
+    "name": "آناناس",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 1090,
+    "phosphorus": 80,
+    "calcium": 130,
+    "protein": 54,
+    "water": 86000,
+    "carb": 13120,
+    "fat": 120,
+    "kcal": 50,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک فنجان خرد شده"
+  },
+  {
+    "name": "انار",
+    "category": "میوه‌ها",    "sodium": 30,
+    "potassium": 2360,
+    "phosphorus": 360,
+    "calcium": 100,
+    "protein": 167,
+    "water": 77930,
+    "carb": 18700,
+    "fat": 1170,
+    "kcal": 83,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "نصف انار متوسط"
+  },
+  {
+    "name": "طالبی",
+    "category": "میوه‌ها",
+    "sodium": 180,
+    "potassium": 2280,
+    "phosphorus": 110,
+    "calcium": 90,
+    "protein": 54,
+    "water": 90150,
+    "carb": 8160,
+    "fat": 190,
+    "kcal": 34,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {    "name": "گرمَک",
+    "category": "میوه‌ها",
+    "sodium": 160,
+    "potassium": 2670,
+    "phosphorus": 150,
+    "calcium": 110,
+    "protein": 84,
+    "water": 90000,
+    "carb": 8000,
+    "fat": 200,
+    "kcal": 34,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "هندوانه",
+    "category": "میوه‌ها",
+    "sodium": 10,
+    "potassium": 1120,
+    "phosphorus": 110,
+    "calcium": 70,
+    "protein": 61,
+    "water": 91450,
+    "carb": 7550,
+    "fat": 150,
+    "kcal": 30,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "لیموترش",
+    "category": "میوه‌ها",
+    "sodium": 20,
+    "potassium": 1380,
+    "phosphorus": 160,
+    "calcium": 260,
+    "protein": 110,    "water": 88980,
+    "carb": 9320,
+    "fat": 300,
+    "kcal": 29,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "گوجه فرنگی",
+    "category": "سبزیجات",
+    "sodium": 50,
+    "potassium": 2370,
+    "phosphorus": 240,
+    "calcium": 100,
+    "protein": 88,
+    "water": 94500,
+    "carb": 3890,
+    "fat": 200,
+    "kcal": 18,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "خیار",
+    "category": "سبزیجات",
+    "sodium": 20,
+    "potassium": 1470,
+    "phosphorus": 240,
+    "calcium": 160,
+    "protein": 65,
+    "water": 95230,
+    "carb": 3630,
+    "fat": 110,    "kcal": 15,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک فنجان خرد شده"
+  },
+  {
+    "name": "خیارشور",
+    "category": "غذاهای آماده و کنسروی",
+    "sodium": 12080,
+    "potassium": 230,
+    "phosphorus": 140,
+    "calcium": 570,
+    "protein": 33,
+    "water": 95000,
+    "carb": 2400,
+    "fat": 200,
+    "kcal": 12,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "sodium": "high"
+    },
+    "unit": "دو عدد متوسط"
+  },
+  {
+    "name": "هویج",
+    "category": "سبزیجات",
+    "sodium": 690,
+    "potassium": 3200,
+    "phosphorus": 350,
+    "calcium": 330,
+    "protein": 93,
+    "water": 88290,
+    "carb": 9580,
+    "fat": 240,
+    "kcal": 41,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان خرد شده"
+  },
+  {
+    "name": "سیب زمینی پخته",
+    "category": "سبزیجات",
+    "sodium": 40,
+    "potassium": 3790,
+    "phosphorus": 440,
+    "calcium": 130,
+    "protein": 187,
+    "water": 78960,
+    "carb": 21150,
+    "fat": 100,
+    "kcal": 93,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "potassium": "high"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "پیاز",
+    "category": "سبزیجات",
+    "sodium": 40,
+    "potassium": 1460,
+    "phosphorus": 290,
+    "calcium": 230,
+    "protein": 110,
+    "water": 89110,
+    "carb": 9340,
+    "fat": 100,
+    "kcal": 40,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "نصف پیاز متوسط"
+  },
+  {
+    "name": "سیر",
+    "category": "سبزیجات",
+    "sodium": 170,
+    "potassium": 4010,
+    "phosphorus": 1530,
+    "calcium": 1810,
+    "protein": 636,
+    "water": 58580,
+    "carb": 33060,
+    "fat": 500,
+    "kcal": 149,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "high",
+      "phosphorus": "high",
+      "calcium": "high"
+    },
+    "unit": "یک حبه سیر"
+  },
+  {
+    "name": "فلفل دلمه ای",
+    "category": "سبزیجات",
+    "sodium": 30,
+    "potassium": 1750,
+    "phosphorus": 200,
+    "calcium": 70,
+    "protein": 86,
+    "water": 92000,
+    "carb": 6030,
+    "fat": 170,
+    "kcal": 26,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "نصف فلفل دلمه ای متوسط"
+  },
+  {
+    "name": "فلفل تند",
+    "category": "سبزیجات",
+    "sodium": 90,
+    "potassium": 3220,
+    "phosphorus": 430,
+    "calcium": 140,
+    "protein": 187,
+    "water": 88000,
+    "carb": 8810,
+    "fat": 440,
+    "kcal": 40,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک عدد متوسط"
+  },
+  {
+    "name": "کدو سبز پخته",
+    "category": "سبزیجات",
+    "sodium": 10,
+    "potassium": 4590,
+    "phosphorus": 440,
+    "calcium": 180,
+    "protein": 120,
+    "water": 94000,
+    "carb": 3000,
+    "fat": 300,
+    "kcal": 20,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "high"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "قارچ",
+    "category": "سبزیجات",
+    "sodium": 50,
+    "potassium": 3180,
+    "phosphorus": 860,
+    "calcium": 30,
+    "protein": 309,    "water": 92000,
+    "carb": 3260,
+    "fat": 340,
+    "kcal": 22,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate",
+      "phosphorus": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "کاهو",
+    "category": "سبزیجات",
+    "sodium": 280,
+    "potassium": 1940,
+    "phosphorus": 290,
+    "calcium": 360,
+    "protein": 136,
+    "water": 95000,
+    "carb": 2870,
+    "fat": 150,
+    "kcal": 15,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "کلم پیچ",
+    "category": "سبزیجات",
+    "sodium": 200,
+    "potassium": 3500,
+    "phosphorus": 600,
+    "calcium": 1500,
+    "protein": 338,
+    "water": 90000,
+    "carb": 5000,
+    "fat": 100,
+    "kcal": 35,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate",
+      "phosphorus": "moderate",
+      "calcium": "high"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "گل کلم",
+    "category": "سبزیجات",
+    "sodium": 300,
+    "potassium": 1420,
+    "phosphorus": 440,
+    "calcium": 220,
+    "protein": 192,
+    "water": 92000,
+    "carb": 4970,
+    "fat": 280,
+    "kcal": 25,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "کلم قرمز",
+    "category": "سبزیجات",
+    "sodium": 270,
+    "potassium": 2430,
+    "phosphorus": 300,
+    "calcium": 450,
+    "protein": 143,
+    "water": 90000,
+    "carb": 7370,
+    "fat": 160,
+    "kcal": 31,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "کلم بروکلی",
+    "category": "سبزیجات",
+    "sodium": 330,
+    "potassium": 3160,
+    "phosphorus": 660,
+    "calcium": 470,
+    "protein": 282,
+    "water": 89000,
+    "carb": 6640,
+    "fat": 370,
+    "kcal": 35,
+    "bloodSugarImpact": "کم",
+    "restrictions": {      "potassium": "moderate",
+      "phosphorus": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "اسفناج",
+    "category": "سبزیجات",
+    "sodium": 390,
+    "potassium": 2330,
+    "phosphorus": 200,
+    "calcium": 990,
+    "protein": 68,
+    "water": 91400,
+    "carb": 3630,
+    "fat": 390,
+    "kcal": 23,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {    "name": "شلغم آبپز",
+    "category": "سبزیجات",
+    "sodium": 160,
+    "potassium": 1770,
+    "phosphorus": 260,
+    "calcium": 300,
+    "protein": 71,
+    "water": 94000,
+    "carb": 6000,
+    "fat": 100,
+    "kcal": 22,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "لوبیا سبز آبپز",
+    "category": "سبزیجات",
+    "sodium": 10,
+    "potassium": 1460,
+    "phosphorus": 290,
+    "calcium": 370,
+    "protein": 189,
+    "water": 90000,
+    "carb": 7000,
+    "fat": 200,
+    "kcal": 35,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "low"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "نخود فرنگی آبپز",
+    "category": "غلات و حبوبات",
+    "sodium": 30,
+    "potassium": 2710,
+    "phosphorus": 1170,
+    "calcium": 250,
+    "protein": 536,
+    "water": 78000,
+    "carb": 14450,
+    "fat": 400,
+    "kcal": 81,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate",
+      "phosphorus": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "باقالی آبپز",
+    "category": "غلات و حبوبات",
+    "sodium": 50,
+    "potassium": 2680,
+    "phosphorus": 1250,
+    "calcium": 360,
+    "protein": 760,
+    "water": 72000,
+    "carb": 19650,
+    "fat": 400,
+    "kcal": 110,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "moderate",
+      "phosphorus": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "کنگر آبپز",
+    "category": "سبزیجات",
+    "sodium": 600,
+    "potassium": 2860,
+    "phosphorus": 730,
+    "calcium": 440,
+    "protein": 289,
+    "water": 84000,
+    "carb": 11000,
+    "fat": 300,
+    "kcal": 53,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "moderate",
+      "phosphorus": "moderate"
+    },
+    "unit": "یک فنجان"
+  },
+  {
+    "name": "چغندر آبپز (نصف فنجان)",
+    "category": "سبزیجات",
+    "sodium": 160,
+    "potassium": 1770,
+    "phosphorus": 260,
+    "calcium": 300,
+    "protein": 71,
+    "water": 94000,    "carb": 6000,
+    "fat": 100,
+    "kcal": 22,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 75 گرم)"
+  },
+  {
+    "name": "لوبیا سبز آبپز (نصف فنجان)",
+    "category": "سبزیجات",
+    "sodium": 10,
+    "potassium": 1460,
+    "phosphorus": 290,
+    "calcium": 370,
+    "protein": 189,
+    "water": 90000,
+    "carb": 7000,
+    "fat": 200,
+    "kcal": 35,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "نصف فنجان (حدود 75 گرم)"
+  },
+  {
+    "name": "نخود فرنگی آبپز (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 30,
+    "potassium": 2710,
+    "phosphorus": 1170,
+    "calcium": 250,
+    "protein": 536,
+    "water": 78000,
+    "carb": 14450,
+    "fat": 400,
+    "kcal": 81,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 75 گرم)"
+  },
+  {
+    "name": "باقالی آبپز (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 50,
+    "potassium": 2680,
+    "phosphorus": 1250,
+    "calcium": 360,
+    "protein": 760,
+    "water": 72000,
+    "carb": 19650,
+    "fat": 400,
+    "kcal": 110,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 75 گرم)"
+  },
+  {
+    "name": "کنگر آبپز (نصف فنجان)",
+    "category": "سبزیجات",
+    "sodium": 600,
+    "potassium": 2860,
+    "phosphorus": 730,
+    "calcium": 440,
+    "protein": 289,
+    "water": 84000,
+    "carb": 11000,
+    "fat": 300,
+    "kcal": 53,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 75 گرم)"
+  },
+  {
+    "name": "چغندر آبپز (نصف فنجان)",
+    "category": "سبزیجات",
+    "sodium": 770,
+    "potassium": 3050,
+    "phosphorus": 380,
+    "calcium": 160,
+    "protein": 168,
+    "water": 87000,
+    "carb": 9960,
+    "fat": 180,
+    "kcal": 44,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 75 گرم)"
+  },
+  {
+    "name": "بامیه (یک فنجان)",
+    "category": "سبزیجات",
+    "sodium": 70,
+    "potassium": 2990,
+    "phosphorus": 610,
+    "calcium": 810,
+    "protein": 193,
+    "water": 90000,
+    "carb": 7000,
+    "fat": 200,
+    "kcal": 33,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک فنجان (حدود 100 گرم)"
+  },
+  {
+    "name": "کرفس (چند ساقه)",
+    "category": "سبزیجات",
+    "sodium": 800,
+    "potassium": 2600,
+    "phosphorus": 240,
+    "calcium": 400,
+    "protein": 69,
+    "water": 95000,
+    "carb": 2970,
+    "fat": 170,
+    "kcal": 16,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط"
+    },
+    "unit": "چند ساقه (حدود 100 گرم)"
+  },
+  {
+    "name": "پیازچه (یک فنجان خرد شده)",
+    "category": "سبزیجات",
+    "sodium": 160,
+    "potassium": 2760,
+    "phosphorus": 370,
+    "calcium": 720,
+    "protein": 183,
+    "water": 90000,
+    "carb": 7000,
+    "fat": 200,
+    "kcal": 32,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط"
+    },
+    "unit": "یک فنجان خرد شده (حدود 50 گرم)"
+  },
+  {
+    "name": "تره فرنگی (یک فنجان خرد شده)",
+    "category": "سبزیجات",
+    "sodium": 200,
+    "potassium": 1800,
+    "phosphorus": 350,
+    "calcium": 590,
+    "protein": 150,
+    "water": 83000,
+    "carb": 14000,
+    "fat": 300,
+    "kcal": 61,    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط"
+    },
+    "unit": "یک فنجان خرد شده (حدود 100 گرم)"
+  },
+  {
+    "name": "تره (یک فنجان)",
+    "category": "سبزیجات",
+    "sodium": 30,
+    "potassium": 2960,
+    "phosphorus": 580,
+    "calcium": 810,
+    "protein": 327,
+    "water": 85000,
+    "carb": 8000,
+    "fat": 700,
+    "kcal": 50,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک فنجان (حدود 100 گرم)"
+  },
+  {
+    "name": "جعفری (یک فنجان)",
+    "category": "سبزیجات",
+    "sodium": 560,
+    "potassium": 5540,
+    "phosphorus": 580,
+    "calcium": 1380,
+    "protein": 297,
+    "water": 87000,
+    "carb": 6000,
+    "fat": 800,
+    "kcal": 36,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "متوسط",
+      "calcium": "زیاد"
+    },
+    "unit": "یک فنجان (حدود 60 گرم)"
+  },
+  {
+    "name": "شاهی (یک فنجان)",
+    "category": "سبزیجات",
+    "sodium": 300,
+    "potassium": 3300,
+    "phosphorus": 600,
+    "calcium": 1200,
+    "protein": 260,
+    "water": 95000,
+    "carb": 1290,
+    "fat": 700,
+    "kcal": 32,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط",
+      "calcium": "زیاد"
+    },
+    "unit": "یک فنجان (حدود 35 گرم)"
+  },
+  {
+    "name": "ریحان (نصف فنجان)",
+    "category": "سبزیجات",
+    "sodium": 40,
+    "potassium": 2950,
+    "phosphorus": 560,
+    "calcium": 1770,
+    "protein": 315,
+    "water": 92000,
+    "carb": 2650,
+    "fat": 640,
+    "kcal": 23,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط",
+      "calcium": "زیاد"
+    },
+    "unit": "نصف فنجان (حدود 15 گرم)"
+  },
+  {
+    "name": "شنبلیله (یک فنجان)",
+    "category": "سبزیجات",
+    "sodium": 610,
+    "potassium": 7380,
+    "phosphorus": 660,
+    "calcium": 1760,
+    "protein": 346,
+    "water": 88000,
+    "carb": 6000,
+    "fat": 600,
+    "kcal": 49,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "calcium": "زیاد"
+    },
+    "unit": "یک فنجان (حدود 30 گرم)"
+  },
+  {
+    "name": "ترخون خشک (یک قاشق غذاخوری)",
+    "category": "سبزیجات",
+    "sodium": 620,
+    "potassium": 30200,
+    "phosphorus": 3130,
+    "calcium": 11390,
+    "protein": 2270,
+    "water": 7000,
+    "carb": 50000,
+    "fat": 7000,
+    "kcal": 295,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد",
+      "calcium": "زیاد"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 3 گرم)"
+  },
+  {
+    "name": "نعناع (یک فنجان)",
+    "category": "سبزیجات",
+    "sodium": 310,
+    "potassium": 5690,
+    "phosphorus": 730,
+    "calcium": 2430,
+    "protein": 380,
+    "water": 86000,
+    "carb": 8000,
+    "fat": 900,
+    "kcal": 70,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "calcium": "زیاد"
+    },
+    "unit": "یک فنجان (حدود 15 گرم)"
+  },
+  {
+    "name": "برنج پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 10,
+    "potassium": 350,
+    "phosphorus": 430,
+    "calcium": 100,
+    "protein": 269,
+    "water": 68440,
+    "carb": 28170,
+    "fat": 280,
+    "kcal": 130,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {      "potassium": "کم"
+    },
+    "unit": "نصف فنجان (حدود 90 گرم)"
+  },
+  {
+    "name": "برنج قهوه‌ای پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 50,
+    "potassium": 430,
+    "phosphorus": 770,
+    "calcium": 100,
+    "protein": 252,
+    "water": 70000,
+    "carb": 23000,
+    "fat": 900,
+    "kcal": 111,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 90 گرم)"
+  },
+  {
+    "name": "نان سنگک (یک کف دست)",
+    "category": "غلات و حبوبات",
+    "sodium": 4900,
+    "potassium": 1260,
+    "phosphorus": 980,
+    "calcium": 470,
+    "protein": 885,
+    "water": 37000,
+    "carb": 58000,
+    "fat": 1200,
+    "kcal": 270,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک کف دست (حدود 30 گرم)"
+  },
+  {
+    "name": "نان تافتون (یک کف دست)",
+    "category": "غلات و حبوبات",
+    "sodium": 4900,
+    "potassium": 1190,
+    "phosphorus": 980,
+    "calcium": 470,
+    "protein": 885,
+    "water": 35000,
+    "carb": 55000,
+    "fat": 1000,
+    "kcal": 260,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک کف دست (حدود 30 گرم)"
+  },
+  {
+    "name": "نان لواش (یک کف دست)",
+    "category": "غلات و حبوبات",
+    "sodium": 4900,
+    "potassium": 1150,
+    "phosphorus": 980,
+    "calcium": 470,
+    "protein": 885,
+    "water": 33000,
+    "carb": 52000,
+    "fat": 800,
+    "kcal": 250,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک کف دست (حدود 25 گرم)"
+  },
+  {
+    "name": "نان بربری (یک کف دست)",
+    "category": "غلات و حبوبات",
+    "sodium": 5000,
+    "potassium": 1200,
+    "phosphorus": 980,
+    "calcium": 470,
+    "protein": 885,
+    "water": 36000,
+    "carb": 56000,
+    "fat": 1100,
+    "kcal": 265,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",      "phosphorus": "متوسط"
+    },
+    "unit": "یک کف دست (حدود 30 گرم)"
+  },
+  {
+    "name": "نان باگت (یک کف دست)",
+    "category": "غلات و حبوبات",
+    "sodium": 5100,
+    "potassium": 1130,
+    "phosphorus": 960,
+    "calcium": 440,
+    "protein": 880,
+    "water": 34000,
+    "carb": 53000,
+    "fat": 1000,
+    "kcal": 255,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک کف دست (حدود 30 گرم)"
+  },
+  {
+    "name": "نان تست (یک کف دست)",
+    "category": "غلات و حبوبات",
+    "sodium": 5110,
+    "potassium": 1150,
+    "phosphorus": 980,
+    "calcium": 470,    "protein": 885,
+    "water": 35000,
+    "carb": 50000,
+    "fat": 3500,
+    "kcal": 270,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک کف دست (حدود 25 گرم)"
+  },
+  {
+    "name": "بلغور گندم پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 50,
+    "potassium": 680,
+    "phosphorus": 400,
+    "calcium": 100,
+    "protein": 308,
+    "water": 76000,
+    "carb": 18000,
+    "fat": 200,
+    "kcal": 83,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "نصف فنجان (حدود 90 گرم)"
+  },  {
+    "name": "جو پرک پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 60,
+    "potassium": 700,
+    "phosphorus": 770,
+    "calcium": 200,
+    "protein": 250,
+    "water": 84000,
+    "carb": 12000,
+    "fat": 500,
+    "kcal": 71,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 80 گرم)"
+  },
+  {
+    "name": "جو دوسر پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 20,
+    "potassium": 700,
+    "phosphorus": 770,
+    "calcium": 200,
+    "protein": 250,
+    "water": 84000,
+    "carb": 12000,    "fat": 500,
+    "kcal": 71,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 80 گرم)"
+  },
+  {
+    "name": "ذرت (یک فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 150,
+    "potassium": 2700,
+    "phosphorus": 890,
+    "calcium": 20,
+    "protein": 327,
+    "water": 76000,
+    "carb": 19000,
+    "fat": 1200,
+    "kcal": 86,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک فنجان (حدود 165 گرم)"
+  },
+  {
+    "name": "کینوا پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 70,
+    "potassium": 1720,
+    "phosphorus": 1520,
+    "calcium": 170,
+    "protein": 141,
+    "water": 72000,
+    "carb": 21000,
+    "fat": 1900,
+    "kcal": 120,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "زیاد"
+    },
+    "unit": "نصف فنجان (حدود 90 گرم)"
+  },
+  {
+    "name": "گندم کامل پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 20,
+    "potassium": 1350,
+    "phosphorus": 1320,
+    "calcium": 130,
+    "protein": 548,
+    "water": 62000,
+    "carb": 28000,
+    "fat": 700,
+    "kcal": 132,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 90 گرم)"  },
+  {
+    "name": "پاستا پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 10,
+    "potassium": 440,
+    "phosphorus": 580,
+    "calcium": 70,
+    "protein": 509,
+    "water": 62000,
+    "carb": 25000,
+    "fat": 1100,
+    "kcal": 131,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 75 گرم)"
+  },
+  {
+    "name": "نخود پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 70,
+    "potassium": 2910,
+    "phosphorus": 1680,
+    "calcium": 490,
+    "protein": 886,
+    "water": 60210,
+    "carb": 27420,
+    "fat": 2590,
+    "kcal": 164,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط",      "phosphorus": "زیاد"
+    },
+    "unit": "نصف فنجان (حدود 85 گرم)"
+  },
+  {
+    "name": "لوبیا سفید پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 60,
+    "potassium": 5610,
+    "phosphorus": 1130,
+    "calcium": 690,
+    "protein": 974,
+    "water": 63000,
+    "carb": 25000,
+    "fat": 400,
+    "kcal": 139,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 85 گرم)"
+  },
+  {
+    "name": "لوبیا قرمز پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 20,
+    "potassium": 4030,
+    "phosphorus": 1420,
+    "calcium": 280,
+    "protein": 890,
+    "water": 67000,
+    "carb": 22800,
+    "fat": 500,
+    "kcal": 127,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد"
+    },
+    "unit": "نصف فنجان (حدود 85 گرم)"
+  },
+  {
+    "name": "لوبیا چیتی پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 10,
+    "potassium": 4550,
+    "phosphorus": 1370,
+    "calcium": 610,
+    "protein": 863,
+    "water": 66000,
+    "carb": 22000,
+    "fat": 500,
+    "kcal": 123,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 85 گرم)"
+  },
+  {
+    "name": "لپه پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",    "sodium": 50,
+    "potassium": 7100,
+    "phosphorus": 1270,
+    "calcium": 550,
+    "protein": 833,
+    "water": 67000,
+    "carb": 21000,
+    "fat": 400,
+    "kcal": 118,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "نصف فنجان (حدود 85 گرم)"
+  },
+  {
+    "name": "سویا پخته (نصف فنجان)",
+    "category": "غلات و حبوبات",
+    "sodium": 10,
+    "potassium": 5150,
+    "phosphorus": 2450,
+    "calcium": 1020,
+    "protein": 1660,
+    "water": 62550,
+    "carb": 9930,
+    "fat": 8970,
+    "kcal": 173,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد",
+      "calcium": "زیاد"    },
+    "unit": "نصف فنجان (حدود 85 گرم)"
+  },
+  {
+    "name": "بادام (یک مشت)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 10,
+    "potassium": 7330,
+    "phosphorus": 4810,
+    "calcium": 2690,    "protein": 2110,
+    "water": 4410,
+    "carb": 21550,
+    "fat": 49930,
+    "kcal": 579,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد",      "calcium": "زیاد"
+    },
+    "unit": "یک مشت (حدود 30 گرم)"
+  },
+  {
+    "name": "بادام هندی (یک مشت)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 120,
+    "potassium": 6600,
+    "phosphorus": 5930,
+    "calcium": 370,
+    "protein": 1820,
+    "water": 5200,
+    "carb": 30190,
+    "fat": 43850,
+    "kcal": 553,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک مشت (حدود 30 گرم)"
+  },
+  {
+    "name": "بادام زمینی (یک مشت)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 180,
+    "potassium": 7050,
+    "phosphorus": 3760,
+    "calcium": 920,
+    "protein": 2570,
+    "water": 6500,
+    "carb": 16130,
+    "fat": 49240,
+    "kcal": 567,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک مشت (حدود 30 گرم)"
+  },
+  {
+    "name": "پسته (یک مشت)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 10,
+    "potassium": 10250,
+    "phosphorus": 4900,
+    "calcium": 1050,
+    "protein": 2010,
+    "water": 4370,
+    "carb": 27170,
+    "fat": 45320,
+    "kcal": 560,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد",
+      "calcium": "زیاد"
+    },
+    "unit": "یک مشت (حدود 30 گرم)"
+  },
+  {
+    "name": "فندق (یک مشت)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 0,
+    "potassium": 6800,
+    "phosphorus": 2900,    "calcium": 1140,
+    "protein": 1490,
+    "water": 5310,
+    "carb": 16700,
+    "fat": 60750,
+    "kcal": 628,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد",
+      "calcium": "زیاد"
+    },
+    "unit": "یک مشت (حدود 30 گرم)"
+  },
+  {    "name": "گردو (چند عدد)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 20,
+    "potassium": 4410,
+    "phosphorus": 3460,
+    "calcium": 980,
+    "protein": 1520,
+    "water": 4070,
+    "carb": 13710,
+    "fat": 65210,
+    "kcal": 654,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "چند عدد (حدود 30 گرم)"
+  },
+  {
+    "name": "تخم آفتابگردان (یک مشت)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 90,
+    "potassium": 6450,
+    "phosphorus": 11550,
+    "calcium": 780,
+    "protein": 2070,
+    "water": 4730,
+    "carb": 20000,
+    "fat": 51460,
+    "kcal": 584,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک مشت (حدود 30 گرم)"
+  },
+  {
+    "name": "تخم کدو (یک مشت)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 180,
+    "potassium": 9190,
+    "phosphorus": 9200,
+    "calcium": 550,
+    "protein": 3020,
+    "water": 4500,
+    "carb": 10710,
+    "fat": 49050,
+    "kcal": 559,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک مشت (حدود 30 گرم)"
+  },
+  {
+    "name": "کنجد (یک قاشق غذاخوری)",
+    "category": "آجیل و دانه‌ها",
+    "sodium": 110,
+    "potassium": 4680,
+    "phosphorus": 6290,
+    "calcium": 9750,
+    "protein": 1770,
+    "water": 4690,
+    "carb": 23450,
+    "fat": 49670,
+    "kcal": 573,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد",
+      "calcium": "زیاد"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 9 گرم)"
+  },
+  {
+    "name": "ماهی (یک تکه)",
+    "category": "گوشت و فرآورده‌های گوشتی",
+    "sodium": 610,
+    "potassium": 3840,
+    "phosphorus": 2540,
+    "calcium": 150,
+    "protein": 2240,
+    "water": 70000,
+    "carb": 0,
+    "fat": 5000,
+    "kcal": 150,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک تکه (حدود 100 گرم)"
+  },
+  {
+    "name": "گوشت گوساله (یک تکه)",
+    "category": "گوشت و فرآورده‌های گوشتی",
+    "sodium": 680,
+    "potassium": 3180,
+    "phosphorus": 2000,
+    "calcium": 120,
+    "protein": 2540,
+    "water": 71000,
+    "carb": 0,
+    "fat": 7000,
+    "kcal": 170,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک تکه (حدود 100 گرم)"
+  },
+  {
+    "name": "تخم مرغ (یک عدد)",
+    "category": "گوشت و فرآورده‌های گوشتی",
+    "sodium": 1240,
+    "potassium": 1380,
+    "phosphorus": 1980,
+    "calcium": 560,
+    "protein": 1260,
+    "water": 38075,
+    "carb": 720,
+    "fat": 9510,
+    "kcal": 143,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "کم",
+      "phosphorus": "زیاد",
+      "protein": "متوسط"
+    },
+    "unit": "یک عدد متوسط (حدود 50 گرم)"
+  },
+  {
+    "name": "شیر (یک لیوان)",
+    "category": "لبنیات",
+    "sodium": 440,
+    "potassium": 1500,
+    "phosphorus": 910,
+    "calcium": 1250,
+    "protein": 330,
+    "water": 88000,
+    "carb": 4800,
+    "fat": 3300,
+    "kcal": 61,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط",
+      "calcium": "زیاد"
+    },
+    "unit": "یک لیوان (حدود 240 میلی‌لیتر)"
+  },
+  {
+    "name": "ماست (یک کاسه)",
+    "category": "لبنیات",
+    "sodium": 460,
+    "potassium": 1550,
+    "phosphorus": 950,
+    "calcium": 1210,
+    "protein": 340,
+    "water": 88000,
+    "carb": 4700,
+    "fat": 3300,
+    "kcal": 61,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "متوسط",
+      "phosphorus": "متوسط",
+      "calcium": "زیاد"
+    },
+    "unit": "یک کاسه (حدود 200 گرم)"
+  },
+  {
+    "name": "پنیر (یک برش)",
+    "category": "لبنیات",
+    "sodium": 6290,
+    "potassium": 760,
+    "phosphorus": 4550,
+    "calcium": 7100,
+    "protein": 2280,
+    "water": 37000,
+    "carb": 3100,
+    "fat": 33000,
+    "kcal": 403,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "sodium": "زیاد",
+      "potassium": "کم",
+      "phosphorus": "زیاد",
+      "calcium": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک برش (حدود 30 گرم)"
+  },
+  {
+    "name": "کره (یک قاشق غذاخوری)",
+    "category": "لبنیات",
+    "sodium": 6430,
+    "potassium": 240,
+    "phosphorus": 240,
+    "calcium": 240,
+    "protein": 85,
+    "water": 16000,
+    "carb": 60,
+    "fat": 81000,
+    "kcal": 717,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "sodium": "زیاد",
+      "potassium": "کم"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 14 گرم)"
+  },
+  {
+    "name": "خامه (یک قاشق غذاخوری)",
+    "category": "لبنیات",
+    "sodium": 380,
+    "potassium": 1220,
+    "phosphorus": 600,
+    "calcium": 650,
+    "protein": 205,
+    "water": 58000,
+    "carb": 2800,
+    "fat": 37000,
+    "kcal": 345,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 15 گرم)"
+  },
+  {    "name": "عسل (یک قاشق غذاخوری)",
+    "category": "شیرینی و چاشنی‌ها",
+    "sodium": 40,
+    "potassium": 520,
+    "phosphorus": 40,
+    "calcium": 60,
+    "protein": 30,
+    "water": 17100,
+    "carb": 82400,
+    "fat": 0,
+    "kcal": 304,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "potassium": "کم"    },
+    "unit": "یک قاشق غذاخوری (حدود 21 گرم)"
+  },
+  {
+    "name": "شکر (یک قاشق چای‌خوری)",
+    "category": "شیرینی و چاشنی‌ها",
+    "sodium": 10,
+    "potassium": 20,
+    "phosphorus": 0,
+    "calcium": 10,
+    "protein": 0,
+    "water": 20,
+    "carb": 100000,
+    "fat": 0,
+    "kcal": 387,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک قاشق چای‌خوری (حدود 4 گرم)"
+  },
+  {
+    "name": "مربا (یک قاشق غذاخوری)",
+    "category": "شیرینی و چاشنی‌ها",
+    "sodium": 320,
+    "potassium": 770,
+    "phosphorus": 190,
+    "calcium": 200,
+    "protein": 37,
+    "water": 30000,
+    "carb": 68000,
+    "fat": 100,
+    "kcal": 278,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 20 گرم)"
+  },
+  {
+    "name": "کله پاچه (یک عدد)",
+    "category": "گوشت و فرآورده‌های گوشتی",
+    "sodium": 950,
+    "potassium": 2500,
+    "phosphorus": 1800,
+    "calcium": 150,
+    "protein": 2000,
+    "water": 65000,
+    "carb": 0,
+    "fat": 15000,
+    "kcal": 220,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "متوسط",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "100 گرم"
+  },
+  {
+    "name": "روغن زیتون (یک قاشق غذاخوری)",
+    "category": "شیرینی و چاشنی‌ها",
+    "sodium": 20,
+    "potassium": 10,
+    "phosphorus": 0,
+    "calcium": 10,
+    "protein": 0,
+    "water": 0,
+    "carb": 0,
+    "fat": 100000,
+    "kcal": 884,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 14 گرم)"
+  },
+  {
+    "name": "روغن آفتابگردان (یک قاشق غذاخوری)",
+    "category": "شیرینی و چاشنی‌ها",
+    "sodium": 0,
+    "potassium": 0,
+    "phosphorus": 0,
+    "calcium": 0,
+    "protein": 0,
+    "water": 0,
+    "carb": 0,
+    "fat": 100000,
+    "kcal": 884,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 14 گرم)"
+  },
+  {
+    "name": "رب گوجه فرنگی (یک قاشق غذاخوری)",
+    "category": "شیرینی و چاشنی‌ها",
+    "sodium": 9800,
+    "potassium": 8000,
+    "phosphorus": 830,
+    "calcium": 360,
+    "protein": 1320,
+    "water": 73000,
+    "carb": 19000,
+    "fat": 200,
+    "kcal": 112,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "sodium": "زیاد",
+      "potassium": "زیاد",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک قاشق غذاخوری (حدود 15 گرم)"
+  },
+  {
+    "name": "آب (یک لیوان)",
+    "category": "نوشیدنی‌ها",
+    "sodium": 0,
+    "potassium": 0,
+    "phosphorus": 0,
+    "calcium": 0,
+    "protein": 0,
+    "water": 100000,
+    "carb": 0,
+    "fat": 0,
+    "kcal": 0,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک لیوان (حدود 240 میلی‌لیتر)"
+  },
+  {
+    "name": "چای سیاه (یک فنجان)",
+    "category": "نوشیدنی‌ها",
+    "sodium": 30,
+    "potassium": 370,
+    "phosphorus": 10,
+    "calcium": 0,
+    "protein": 0,
+    "water": 99700,
+    "carb": 300,
+    "fat": 0,
+    "kcal": 1,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک فنجان (حدود 240 میلی‌لیتر)"
+  },
+  {
+    "name": "قهوه (یک فنجان)",
+    "category": "نوشیدنی‌ها",
+    "sodium": 20,
+    "potassium": 490,
+    "phosphorus": 30,
+    "calcium": 20,
+    "protein": 12,
+    "water": 98000,
+    "carb": 0,
+    "fat": 20,
+    "kcal": 2,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک فنجان (حدود 240 میلی‌لیتر)"
+  },
+  {
+    "name": "دوغ (یک لیوان)",
+    "category": "نوشیدنی‌ها",
+    "sodium": 500,
+    "potassium": 1400,
+    "phosphorus": 900,
+    "calcium": 1200,
+    "protein": 300,
+    "water": 88000,
+    "carb": 4000,
+    "fat": 1500,
+    "kcal": 40,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "کم",
+      "phosphorus": "متوسط",
+      "calcium": "زیاد"
+    },
+    "unit": "یک لیوان (حدود 240 میلی‌لیتر)"
+  },
+  {
+    "name": "آبمیوه طبیعی سیب (یک لیوان)",
+    "category": "نوشیدنی‌ها",
+    "sodium": 10,
+    "potassium": 1010,
+    "phosphorus": 110,
+    "calcium": 80,
+    "protein": 10,
+    "water": 88000,
+    "carb": 11000,
+    "fat": 100,
+    "kcal": 46,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "potassium": "کم"
+    },
+    "unit": "یک لیوان (حدود 240 میلی‌لیتر)"
+  },
+  {
+    "name": "آبمیوه طبیعی پرتقال (یک لیوان)",
+    "category": "نوشیدنی‌ها",
+    "sodium": 0,
+    "potassium": 2000,
+    "phosphorus": 140,
+    "calcium": 110,
+    "protein": 70,
+    "water": 88000,
+    "carb": 10400,
+    "fat": 200,
+    "kcal": 45,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {      "potassium": "متوسط"
+    },
+    "unit": "یک لیوان (حدود 240 میلی‌لیتر)"
+  },
+  {
+    "name": "شکلات تلخ (یک تکه)",
+    "category": "تنقلات",
+    "sodium": 240,
+    "potassium": 5590,
+    "phosphorus": 2060,
+    "calcium": 560,
+    "protein": 490,
+    "water": 1370,
+    "carb": 61000,
+    "fat": 31000,
+    "kcal": 604,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "potassium": "زیاد",
+      "phosphorus": "زیاد"
+    },
+    "unit": "یک تکه (حدود 30 گرم)"
+  },
+  {
+    "name": "بیسکویت ساده (چند عدد)",
+    "category": "تنقلات",
+    "sodium": 3500,
+    "potassium": 1000,
+    "phosphorus": 800,
+    "calcium": 300,
+    "protein": 700,
+    "water": 5000,
+    "carb": 70000,
+    "fat": 15000,
+    "kcal": 430,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "چند عدد (حدود 30 گرم)"
+  },
+  {
+    "name": "چیپس سیب زمینی (یک بسته کوچک)",
+    "category": "تنقلات",
+    "sodium": 5500,
+    "potassium": 12700,
+    "phosphorus": 1500,
+    "calcium": 200,
+    "protein": 700,
+    "water": 2000,
+    "carb": 53000,
+    "fat": 34000,
+    "kcal": 536,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "potassium": "زیاد",
+      "phosphorus": "زیاد"
+    },
+    "unit": "یک بسته کوچک (حدود 30 گرم)"
+  },
+  {
+    "name": "پفک (یک بسته کوچک)",
+    "category": "تنقلات",
+    "sodium": 8000,
+    "potassium": 1300,
+    "phosphorus": 900,
+    "calcium": 200,
+    "protein": 600,
+    "water": 2000,
+    "carb": 60000,
+    "fat": 30000,
+    "kcal": 500,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "زیاد",
+      "potassium": "کم",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک بسته کوچک (حدود 30 گرم)"
+  },
+  {
+    "name": "خورشت قورمه سبزی (یک بشقاب)",
+    "category": "غذاهای سنتی ایرانی",
+    "sodium": 2500,
+    "potassium": 3500,
+    "phosphorus": 1200,
+    "calcium": 800,
+    "protein": 1500,
+    "water": 70000,
+    "carb": 10000,
+    "fat": 15000,
+    "kcal": 200,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "sodium": "زیاد",
+      "potassium": "متوسط",
+      "phosphorus": "متوسط",
+      "protein": "زیاد"
+    },
+    "unit": "یک بشقاب (حدود 250 گرم)"
+  },
+  {
+    "name": "خورشت قیمه (یک بشقاب)",
+    "category": "غذاهای سنتی ایرانی",
+    "sodium": 2000,
+    "potassium": 3000,
+    "phosphorus": 1000,
+    "calcium": 500,
+    "protein": 1200,
+    "water": 72000,
+    "carb": 12000,
+    "fat": 10000,
+    "kcal": 180,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "متوسط",
+      "phosphorus": "متوسط",
+      "protein": "متوسط"
+    },
+    "unit": "یک بشقاب (حدود 250 گرم)"
+  },
+  {
+    "name": "کباب کوبیده (دو سیخ)",
+    "category": "غذاهای سنتی ایرانی",
+    "sodium": 1200,
+    "potassium": 3200,
+    "phosphorus": 2000,
+    "calcium": 200,
+    "protein": 2500,
+    "water": 60000,
+    "carb": 0,
+    "fat": 20000,
+    "kcal": 280,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "متوسط",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },    "unit": "دو سیخ (حدود 150 گرم)"
+  },
+  {
+    "name": "جوجه کباب (دو سیخ)",
+    "category": "غذاهای سنتی ایرانی",
+    "sodium": 900,
+    "potassium": 2800,
+    "phosphorus": 2000,
+    "calcium": 150,
+    "protein": 2400,
+    "water": 65000,
+    "carb": 0,
+    "fat": 10000,
+    "kcal": 190,
+    "bloodSugarImpact": "کم",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "متوسط",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "دو سیخ (حدود 150 گرم)"
+  },
+  {
+    "name": "زرشک پلو با مرغ (یک بشقاب)",
+    "category": "غذاهای سنتی ایرانی",
+    "sodium": 1500,
+    "potassium": 2500,
+    "phosphorus": 1500,
+    "calcium": 300,
+    "protein": 1800,
+    "water": 60000,
+    "carb": 30000,
+    "fat": 8000,
+    "kcal": 250,
+    "bloodSugarImpact": "زیاد",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "متوسط",
+      "phosphorus": "زیاد",
+      "protein": "زیاد"
+    },
+    "unit": "یک بشقاب (حدود 300 گرم)"
+  },
+  {
+    "name": "آش رشته (یک کاسه)",
+    "category": "غذاهای سنتی ایرانی",
+    "sodium": 2000,
+    "potassium": 3000,
+    "phosphorus": 1000,
+    "calcium": 500,
+    "protein": 800,
+    "water": 80000,
+    "carb": 15000,
+    "fat": 5000,
+    "kcal": 130,
+    "bloodSugarImpact": "متوسط",
+    "restrictions": {
+      "sodium": "متوسط",
+      "potassium": "متوسط",
+      "phosphorus": "متوسط"
+    },
+    "unit": "یک کاسه (حدود 250 گرم)"
+  }
+]

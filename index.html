@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مدیریت تغذیه بیماران دیالیزی</title>
+  <link href="https://cdn.jsdelivr.net/npm/vazir-font@28.0.0/dist/font-face.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/shabnam-font@5.0.0/dist/font-face.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="/Dialysisfoodpwa/styles.css">
+  <link rel="manifest" href="/Dialysisfoodpwa/manifest.json">
+  <meta name="theme-color" content="#1a3c6d">
+</head>
+<body>
+  <!-- انیمیشن لودینگ -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loader"></div>
+    <p>در حال بارگذاری...</p>
+  </div>
+
+  <div class="intro-page" id="introPage">
+    <h1>مدیریت تغذیه بیماران دیالیزی</h1>
+    <p>این اپلیکیشن به شما کمک می‌کند تا رژیم غذایی خود را به دقت مدیریت کنید، مصرف مواد غذایی و آب را ثبت کنید و با تیم درمانی خود در ارتباط باشید.</p>
+    <div class="intro-tabs">
+      <div class="tab-row">
+        <button class="intro-tab-button register" onclick="openTab('dashboard')"><i class="fas fa-home"></i> ثبت مواد غذایی</button>
+        <button class="intro-tab-button intakeHistory" onclick="openTab('intakeHistory')"><i class="fas fa-history"></i> تاریخچه مصرف</button>
+      </div>
+      <div class="tab-row">
+        <button class="intro-tab-button foodList" onclick="openTab('foodList')"><i class="fas fa-utensils"></i> لیست مواد غذایی</button>
+        <button class="intro-tab-button videos" onclick="openTab('videos')"><i class="fas fa-video"></i> فیلم‌های آموزشی</button>
+      </div>
+      <div class="tab-row">
+        <button class="intro-tab-button tutorial" onclick="openTab('tutorial')"><i class="fas fa-book"></i> آموزش اپلیکیشن</button>
+        <button class="intro-tab-button settings" onclick="openTab('settings')"><i class="fas fa-cog"></i> تنظیمات</button>
+      </div>
+      <div class="tab-row">
+        <button class="intro-tab-button contact" onclick="openTab('contact')"><i class="fas fa-phone"></i> ارتباط با تیم</button>
+        <button class="intro-tab-button about" onclick="openTab('about')"><i class="fas fa-info-circle"></i> درباره ما</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-area" id="contentArea">
+      <div class="nav-buttons">
+        <button class="nav-button" onclick="goBack()"><i class="fas fa-arrow-right"></i> برگشت</button>
+      </div>
+      <h1>مدیریت تغذیه بیماران دیالیزی</h1>
+      <div id="errorMessage" class="error-message" style="display: none;"></div>
+      <section id="dashboard" class="tab-content">
+        <h2><i class="fas fa-home"></i> مقادیر مواد غذایی</h2>
+        <button class="delete-all-data-button" onclick="resetAllData()"><i class="fas fa-trash-alt"></i> پاک کردن تمام داده‌ها</button>
+        <div class="charts-container">
+          <div class="chart-wrapper">
+            <canvas id="sodiumChart"></canvas>
+            <span id="sodiumSticker">😊</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="potassiumChart"></canvas>
+            <span id="potassiumSticker">😊</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="phosphorusChart"></canvas>
+            <span id="phosphorusSticker">😊</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="proteinChart"></canvas>
+            <span id="proteinSticker">😊</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="waterChart"></canvas>
+            <span id="waterSticker">😊</span>
+          </div>
+        </div>
+        <div id="warnings"></div>
+        <div id="currentTotals" class="scrollable">
+          <p>سدیم مصرفی: <span id="totalSodiumMg">0</span> میلی‌گرم (حد مجاز: <span id="sodiumLimitDisplayMg"></span> میلی‌گرم)</p>
+          <p>پتاسیم مصرفی: <span id="totalPotassiumMg">0</span> میلی‌گرم (حد مجاز: <span id="potassiumLimitDisplayMg"></span> میلی‌گرم)</p>
+          <p>فسفر مصرفی: <span id="totalPhosphorusMg">0</span> میلی‌گرم (حد مجاز: <span id="phosphorusLimitDisplayMg"></span> میلی‌گرم)</p>
+          <p>پروتئین مصرفی: <span id="totalProteinMg">0</span> گرم (حد مجاز: <span id="proteinLimitDisplayMg"></span> گرم)</p>
+          <p>آب مصرفی: <span id="totalWaterMl">0</span> میلی‌لیتر (حد مجاز: <span id="waterLimitDisplayMl"></span> میلی‌لیتر)</p>
+          <p>کالری مصرفی: <span id="totalKcal">0</span> کیلوکالری</p>
+          <p>مقدار ادرار ۲۴ ساعته: <span id="dailyUrineOutput">0</span> میلی‌لیتر</p>
+        </div>
+        <h3><i class="fas fa-utensils"></i> ثبت مصرف غذا</h3>
+        <form id="foodIntakeForm" onsubmit="addIntake(event)">
+          <div class="search-container">
+            <label for="foodSearch"><i class="fas fa-search"></i> جستجوی غذا:</label>
+            <input type="text" id="foodSearch" name="foodSearch" placeholder="نام غذا را وارد کنید">
+            <i class="fas fa-search"></i>
+          </div>
+          <label for="foodSelect"><i class="fas fa-list"></i> انتخاب غذا:</label>
+          <select id="foodSelect" name="foodSelect" required>
+            <option value="">یک غذا انتخاب کنید</option>
+          </select>
+          <label for="quantity"><i class="fas fa-weight"></i> مقدار (واحد):</label>
+          <input type="number" id="quantity" name="quantity" step="0.01" required>
+          <label for="mealType"><i class="fas fa-clock"></i> وعده غذایی:</label>
+          <select id="mealType" name="mealType" required>
+            <option value="صبحانه">صبحانه</option>
+            <option value="ناهار">ناهار</option>
+            <option value="شام">شام</option>
+            <option value="میان‌وعده">میان‌وعده</option>
+          </select>
+          <button type="submit" class="add-button"><i class="fas fa-plus"></i> اضافه کردن</button>
+        </form>
+        <h3><i class="fas fa-glass-whiskey"></i> ثبت مصرف آب (لیوان ۲۰۰ سی‌سی)</h3>
+        <form id="waterIntakeForm" onsubmit="addWaterIntake(event)">
+          <label for="waterCups"><i class="fas fa-tint"></i> تعداد لیوان‌ها:</label>
+          <input type="number" id="waterCups" name="waterCups" step="0.01" required>
+          <button type="submit" class="add-button"><i class="fas fa-plus"></i> اضافه کردن</button>
+        </form>
+        <h3><i class="fas fa-tint-slash"></i> ثبت مقدار ادرار (میلی‌لیتر)</h3>
+        <form id="urineIntakeForm" onsubmit="addUrineOutput(event)">
+          <label for="urineAmount"><i class="fas fa-tint"></i> مقدار ادرار (میلی‌لیتر):</label>
+          <input type="number" id="urineAmount" name="urineAmount" step="0.01" required>
+          <button type="submit" class="add-button"><i class="fas fa-plus"></i> ثبت</button>
+        </form>
+      </section>
+      <section id="intakeHistory" class="tab-content">
+        <h2><i class="fas fa-history"></i> تاریخچه مصرف مواد غذایی شما</h2>
+        <button class="delete-all-button" onclick="deleteAllIntakes()"><i class="fas fa-trash"></i> حذف همه</button>
+        <div class="table-wrapper">
+          <div id="intakeTableBody"></div>
+        </div>
+      </section>
+      <section id="foodList" class="tab-content">
+        <h2><i class="fas fa-utensils"></i> لیست مواد غذایی</h2>
+        <div>
+          <label for="filterSelect"><i class="fas fa-filter"></i> فیلتر بر اساس:</label>
+          <select id="filterSelect" onchange="filterFoodDatabase()">
+            <option value="all">همه</option>
+            <option value="lowPotassium">کم‌پتاسیم</option>
+            <option value="lowPhosphorus">کم‌فسفر</option>
+            <option value="lowSodium">کم‌سدیم</option>
+          </select>
+        </div>
+        <div id="foodCategories"></div>
+        <button class="add-button" onclick="showAddFoodForm()"><i class="fas fa-plus"></i> اضافه کردن غذا</button>
+        <form id="addFoodForm" style="display: none;" onsubmit="addFood(event)">
+          <h3><i class="fas fa-utensils"></i> اضافه کردن/ویرایش غذا</h3>
+          <input type="hidden" id="foodIndex" name="foodIndex">
+          <label for="foodName"><i class="fas fa-tag"></i> نام غذا:</label>
+          <input type="text" id="foodName" name="foodName" required>
+          <label for="foodCategory"><i class="fas fa-list-alt"></i> دسته‌بندی:</label>
+          <select id="foodCategory" name="foodCategory" required>
+            <option value="گوشت">گوشت</option>
+            <option value="سبزیجات">سبزیجات</option>
+            <option value="لبنیات">لبنیات</option>
+            <option value="غلات">غلات</option>
+            <option value="میوه‌ها">میوه‌ها</option>
+          </select>
+          <label for="foodImage"><i class="fas fa-image"></i> تصویر غذا:</label>
+          <input type="file" id="foodImage" name="foodImage" accept="image/*">
+          <label for="foodSodium"><i class="fas fa-flask"></i> سدیم (میلی‌گرم):</label>
+          <input type="number" id="foodSodium" name="foodSodium" step="0.001" required>
+          <label for="foodPotassium"><i class="fas fa-flask"></i> پتاسیم (میلی‌گرم):</label>
+          <input type="number" id="foodPotassium" name="foodPotassium" step="0.001" required>
+          <label for="foodPhosphorus"><i class="fas fa-flask"></i> فسفر (میلی‌گرم):</label>
+          <input type="number" id="foodPhosphorus" name="foodPhosphorus" step="0.001" required>
+          <label for="foodProtein"><i class="fas fa-drumstick-bite"></i> پروتئین (گرم):</label>
+          <input type="number" id="foodProtein" name="foodProtein" step="0.01" required>
+          <label for="foodWater"><i class="fas fa-tint"></i> آب (میلی‌لیتر):</label>
+          <input type="number" id="foodWater" name="foodWater" step="0.01" required>
+          <label for="foodKcal"><i class="fas fa-fire"></i> کالری (کیلوکالری):</label>
+          <input type="number" id="foodKcal" name="foodKcal" step="0.01" required>
+          <label for="foodCarb"><i class="fas fa-bread-slice"></i> کربوهیدرات (گرم):</label>
+          <input type="number" id="foodCarb" name="foodCarb" step="0.01" required>
+          <label for="foodFat"><i class="fas fa-cheese"></i> چربی (گرم):</label>
+          <input type="number" id="foodFat" name="foodFat" step="0.01" required>
+          <button type="submit" class="save-button"><i class="fas fa-save"></i> ذخیره</button>
+        </form>
+      </section>
+      <section id="videos" class="tab-content">
+        <h2><i class="fas fa-video"></i> فیلم‌های آموزشی</h2>
+        <div class="video-container">
+          <h3>رژیم خاص</h3>
+          <iframe src="https://www.aparat.com/video/video/embed/videohash/vhf4z5z/vt/frame" allowfullscreen="true"></iframe>
+        </div>
+        <div class="video-container">
+          <h3>فسفر</h3>
+          <iframe src="https://www.aparat.com/video/video/embed/videohash/hlqzdki/vt/frame" allowfullscreen="true"></iframe>
+        </div>
+        <div class="video-container">
+          <h3>پتاسیم</h3>
+          <iframe src="https://www.aparat.com/video/video/embed/videohash/ifu44gz/vt/frame" allowfullscreen="true"></iframe>
+        </div>
+        <div class="video-container">
+          <h3>سدیم و آب</h3>
+          <iframe src="https://www.aparat.com/video/video/embed/videohash/lof5k6h/vt/frame" allowfullscreen="true"></iframe>
+        </div>
+        <div class="video-container">
+          <h3>قند و انرژی</h3>
+          <iframe src="https://www.aparat.com/video/video/embed/videohash/hjc3195/vt/frame" allowfullscreen="true"></iframe>
+        </div>
+      </section>
+      <section id="tutorial" class="tab-content">
+        <h2><i class="fas fa-book"></i> آموزش استفاده از اپلیکیشن</h2>
+        <div class="video-container">
+          <h3>راهنمای استفاده از اپلیکیشن تغذیه دیالیزی</h3>
+          <iframe src="https://www.aparat.com/video/video/embed/videohash/TUTORIAL123/vt/frame" allowfullscreen="true"></iframe>
+        </div>
+      </section>
+      <section id="settings" class="tab-content">
+        <h2><i class="fas fa-cog"></i> تنظیمات</h2>
+        <form id="settingsForm" onsubmit="saveSettings(event)">
+          <label for="ibw"><i class="fas fa-weight"></i> وزن ایده‌آل بدن (کیلوگرم):</label>
+          <small>وزن ایده‌آل بیمار (کیلوگرم) را وارد کنید تا حدود مواد مغذی محاسبه شود.</small>
+          <small>فرمول‌ها بر اساس وزن ایده‌آل تنظیم می‌شوند.</small>
+          <input type="number" id="ibw" name="ibw" step="0.01" placeholder="وزن ایده‌آل خود را وارد کنید" required>
+          <label for="urineOutput"><i class="fas fa-tint"></i> حجم ادرار روزانه (میلی‌لیتر):</label>
+          <small>حجم ادرار روزانه بیمار (میلی‌لیتر) را وارد کنید.</small>
+          <input type="number" id="urineOutput" name="urineOutput" step="0.01" placeholder="حجم ادرار روزانه">
+          <label for="minimumUrineOutput"><i class="fas fa-tint-slash"></i> حداقل مقدار ادرار مجاز (میلی‌لیتر):</label>
+          <small>حداقل ادرار مجاز (میلی‌لیتر) را وارد کنید تا هشدار نمایش داده شود.</small>
+          <input type="number" id="minimumUrineOutput" name="minimumUrineOutput" step="0.01" placeholder="حداقل مقدار ادرار" required>
+          <label for="sodiumLimit"><i class="fas fa-flask"></i> حد سدیم (میلی‌گرم):</label>
+          <small>حد مجاز سدیم (میلی‌گرم). فرمول: ۲۳۰۰ × (وزن ایده‌آل / ۷۰) میلی‌گرم</small>
+          <input type="number" id="sodiumLimit" name="sodiumLimit" step="0.001" readonly>
+          <label for="potassiumLimit"><i class="fas fa-flask"></i> حد پتاسیم (میلی‌گرم):</label>
+          <small>حد مجاز پتاسیم (میلی‌گرم). فرمول: ۲۵۰۰ × (وزن ایده‌آل / ۷۰) میلی‌گرم</small>
+          <input type="number" id="potassiumLimit" name="potassiumLimit" step="0.001" readonly>
+          <label for="phosphorusLimit"><i class="fas fa-flask"></i> حد فسفر (میلی‌گرم):</label>
+          <small>حد مجاز فسفر (میلی‌گرم). فرمول: ۹۰۰ × (وزن ایده‌آل / ۷۰) میلی‌گرم</small>
+          <input type="number" id="phosphorusLimit" name="phosphorusLimit" step="0.001" readonly>
+          <label for="proteinLimit"><i class="fas fa-drumstick-bite"></i> حد پروتئین (گرم):</label>
+          <small>حد مجاز پروتئین (گرم). فرمول: ۱.۲ × وزن ایده‌آل گرم</small>
+          <input type="number" id="proteinLimit" name="proteinLimit" step="0.01" readonly>
+          <label for="waterLimit"><i class="fas fa-tint"></i> حد آب (میلی‌لیتر):</label>
+          <small>حد مجاز آب (میلی‌لیتر). فرمول: ۱۰۰۰ + ادرار روزانه + (۵۰ × وزن ایده‌آل) میلی‌لیتر</small>
+          <input type="number" id="waterLimit" name="waterLimit" step="0.01" readonly>
+          <label for="fontSize"><i class="fas fa-font"></i> اندازه فونت:</label>
+          <small>اندازه فونت متن را برای خوانایی بهتر انتخاب کنید.</small>
+          <select id="fontSize" name="fontSize" onchange="applyFontSize(this.value)">
+            <option value="small">کوچک</option>
+            <option value="medium">متوسط</option>
+            <option value="large" selected>بزرگ</option>
+          </select>
+          <button type="submit" class="save-button"><i class="fas fa-save"></i> ذخیره</button>
+        </form>
+      </section>
+      <section id="contact" class="tab-content">
+        <h2><i class="fas fa-phone"></i> ارتباط با تیم درمانی</h2>
+        <p>برای ارتباط با تیم درمانی و مطرح کردن سوالات خود، روی دکمه زیر کلیک کنید:</p>
+        <button class="contact-button" onclick="sendSMS()"><i class="fas fa-sms"></i> ارسال پیامک به تیم درمانی</button>
+      </section>
+      <section id="about" class="tab-content">
+        <h2><i class="fas fa-info-circle"></i> درباره ما</h2>
+        <img src="/Dialysisfoodpwa/icon-192x192.png" alt="لوگو اپلیکیشن" class="about-logo">
+        <p>این اپلیکیشن توسط تیم تحقیقاتی دانشگاه علوم پزشکی مشهد توسعه یافته است. تیم ما متشکل از متخصصان تغذیه، پزشکان نفرولوژی و مهندسان نرم‌افزار است که با هدف بهبود کیفیت زندگی بیماران دیالیزی فعالیت می‌کنند. اپلیکیشن تغذیه دیالیزی به بیماران کمک می‌کند تا رژیم غذایی خود را به دقت مدیریت کرده و با ثبت مصرف مواد غذایی، آب و ادرار، سلامت خود را بهتر کنترل کنند.</p>
+        <p>ما در تلاش هستیم تا با ارائه ابزارهای کاربردی و آموزش‌های به‌روز، بیماران دیالیزی را در مسیر مدیریت بهتر بیماری خود یاری کنیم. برای اطلاعات بیشتر با تیم درمانی ما تماس بگیرید.</p>
+      </section>
+    </div>
+  </div>
+  <script>
+    // ثبت سرویس‌ورکر
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/Dialysisfoodpwa/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(error => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+  <script src="/Dialysisfoodpwa/scripts.js"></script>
+</body>
+</html>
